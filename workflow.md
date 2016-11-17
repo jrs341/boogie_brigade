@@ -22,6 +22,7 @@ Git Work Flow
 	- open the boogie brigade project
 	- on the right side click add a card, you will see the branch you just pushed in there each new pull request creates a new issue automatically
 	- click on it and slide it to the inprogress columb
+		-note: your inital comment from your first push will reamin as the issue title but all additional pushes will be visible in that issue
 
 6. Before moving to another pice of code
 	- git checkout master
