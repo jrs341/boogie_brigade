@@ -1,1 +1,1 @@
-<?php include_once('webCamjs_test/webCamTest.html'); ?>
+<?php include_once('webCamTest.html'); ?>
