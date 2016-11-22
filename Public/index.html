@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script type="text/javascript" src="key.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <script src="webcam.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css"></link>
 </head>
 	<body>
@@ -21,6 +25,39 @@
 	                <a href=""><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
 	            </div>
 	        </div>
+
+	        <form id="fileform" action="">
+    			<select name="type">
+				      <option value="LANDMARK_DETECTION">LANDMARK_DETECTION</option>
+				      <option value="TYPE_UNSPECIFIED">TYPE_UNSPECIFIED</option>
+				      <option value="FACE_DETECTION">FACE_DETECTION</option>
+				      <option value="LOGO_DETECTION">LOGO_DETECTION</option>
+				      <option value="LABEL_DETECTION">LABEL_DETECTION</option>
+				      <option value="TEXT_DETECTION">TEXT_DETECTION</option>
+				      <option value="SAFE_SEARCH_DETECTION">SAFE_SEARCH_DETECTION</option>
+				      <option value="IMAGE_PROPERTIES">IMAGE_PROPERTIES</option>
+    			</select><br />
+			    <div id="my_camera" style="width:320px; height:240px;"></div>
+			    <div id="my_result"></div>
+
+			    <script language="JavaScript">
+			        Webcam.attach( '#my_camera' );
+
+			        function take_snapshot() {
+			            Webcam.snap( function(data_uri) {
+			                sendFileToCloudVision(data_uri);
+			                // document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
+			            } );
+			        }
+			    </script>
+
+			    <a href="javascript:void(take_snapshot())">Take Snapshot</a>
+			    <input type="file" name="fileField" accept="image/*;capture=camera"><br /><br />
+			    <input type="submit" name="submit" value="Submit">
+			</form>
+
+  			<code style="white-space:pre" id="results"></code>
+
 
 	        <div class="row">
 	            <div class="col-lg-12">	                
