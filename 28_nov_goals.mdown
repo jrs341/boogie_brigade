@@ -1,0 +1,35 @@
+TO DO'S:
+
+FRONT END:
+1. Change the dropdown that chooses the type of photo recognition to functions that happen in a certain order:
+	1. App asks the user to take a pictre of the bottle
+	2. App displays the picture taken and asks if they want to submit that pic
+		If yes send
+		If no retake pic
+	3. App asks user if they like that beer, takes a picture of face
+	4. App displays picture taken and asks if they want ot submit that pic
+		if yes send
+		if no retake pic
+	5. If face recognition determines they liked the beer app should ask if they want to add to favorites
+	6. Need a function to rate the beeer based on score that comes back from face recognition
+2. Display beer info to the page returned from various APIs
+
+
+BACK END:
+
+1. Set up a database somewhere, google, firebase, etc...
+	I think two tables:
+		1. beer info
+		2. user info
+2. Make some fancy JSON and ReadMe files
+3. Set up CRUD to db from API results
+	google vision and various beer info
+4. Set up CRUD for user data, possibly login if we get that far
+
+
+NICE TO HAVE TO DOs:
+
+1. Karma testing
+2. user login page/manage account page
+3. save beer info to db and query db and APIs about the beer
+

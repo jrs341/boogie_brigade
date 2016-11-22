@@ -28,3 +28,34 @@ Git Work Flow
 	- git checkout master
 	- git pull
 	- start over again at step 2.
+
+Git Branches Work Flow:
+
+I'm going to make two branches off of the master one for the front end and one for the backend.
+
+I think this will let us merge smaller working pices into the master more efficiently.
+
+Basically the flow is the same as above except when you pull you just add origin and branch name, ex
+
+	GIT PULL ORIGIN FRONTEND
+
+	and you can also clone the main branch to your computer just like you do with the master so everyone can have the same working copy
+
+This way the master is always protected from large edits and it will be easier to pice certain portions of code together.
+
+You command line will go as follows:
+
+	GIT PULL ORIGIN FRONTEND
+
+	GIT BRANCH -B [YOUR BRANCH NAME]
+
+		CODE AWAY
+
+	GIT ADD .
+	GIT COMMIT -M ""
+	GIT PUSH ORIGIN [YOUR BRANCH NAME]
+
+Then go to GitHub and make a pull request
+
+If we do it this way it will be easir merge the FRONTEND and BACKEND branches and then merge those into the master
+
