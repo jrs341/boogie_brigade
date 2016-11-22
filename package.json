@@ -1,0 +1,22 @@
+{
+  "name": "boogie_brigade",
+  "version": "1.0.0",
+  "description": "Team project",
+  "main": "webcam.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrs341/boogie_brigade.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrs341/boogie_brigade/issues"
+  },
+  "homepage": "https://github.com/jrs341/boogie_brigade#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
