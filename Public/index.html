@@ -22,23 +22,25 @@
 	            <h2 class="text-center">Your Beer is out there</h2>
 	            <br>
 	            <div class="text-center">
-	                <a href=""><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
+	                <a href="javascript:void(take_snapshot())"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
 	            </div>
 	        </div>
 
 	        <form id="fileform" action="">
     			<select name="type">
-				      <option value="LANDMARK_DETECTION">LANDMARK_DETECTION</option>
-				      <option value="TYPE_UNSPECIFIED">TYPE_UNSPECIFIED</option>
+				      <!-- <option value="LANDMARK_DETECTION">LANDMARK_DETECTION</option>
+				      <option value="TYPE_UNSPECIFIED">TYPE_UNSPECIFIED</option> -->
 				      <option value="FACE_DETECTION">FACE_DETECTION</option>
 				      <option value="LOGO_DETECTION">LOGO_DETECTION</option>
 				      <option value="LABEL_DETECTION">LABEL_DETECTION</option>
 				      <option value="TEXT_DETECTION">TEXT_DETECTION</option>
-				      <option value="SAFE_SEARCH_DETECTION">SAFE_SEARCH_DETECTION</option>
-				      <option value="IMAGE_PROPERTIES">IMAGE_PROPERTIES</option>
-    			</select><br />
+				      <!-- <option value="SAFE_SEARCH_DETECTION">SAFE_SEARCH_DETECTION</option>
+				      <option value="IMAGE_PROPERTIES">IMAGE_PROPERTIES</option> -->
+    			</select><br /><br />
 			    <div id="my_camera" style="width:320px; height:240px;"></div>
-			    <div id="my_result"></div>
+			    <!-- <a href="javascript:void(take_snapshot())">Take Snapshot</a> -->
+			    <br /><br />
+			    <div id="my_result" style="width:320px; height:240px;"></div>
 
 			    <script language="JavaScript">
 			        Webcam.attach( '#my_camera' );
@@ -46,12 +48,12 @@
 			        function take_snapshot() {
 			            Webcam.snap( function(data_uri) {
 			                sendFileToCloudVision(data_uri);
-			                // document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
+			                document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
 			            } );
 			        }
 			    </script>
 
-			    <a href="javascript:void(take_snapshot())">Take Snapshot</a>
+			    <!-- <a href="javascript:void(take_snapshot())">Take Snapshot</a> -->
 			    <input type="file" name="fileField" accept="image/*;capture=camera"><br /><br />
 			    <input type="submit" name="submit" value="Submit">
 			</form>
@@ -64,6 +66,7 @@
 	                <div class="panel panel-default" hidden="">
 	                    <div class="panel-heading">
 	                        <h4 class="panel-title">Search Results</h4>
+	                        
 	                    </div>
 	                    <div class="panel-body" id="">
 	                    </div>
