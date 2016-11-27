@@ -12,7 +12,7 @@
 // limitations under the License.
 
 'use strict';
-
+// var webCam = require('./webcam.js');
 var CV_URL = 'https://vision.googleapis.com/v1/images:annotate?key=' + window.apiKey;
 
 $(function () {

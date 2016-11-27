@@ -15,15 +15,29 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css"></link>
 </head>
 	<body>
-	    <div class="container">
-	        <div class="jumbotron">
-	            <h1 class="text-center"><span><IMG SRC="https://media.tenor.co/images/6278698bcd94faf53cf4d6aba694eb6f/raw"></span>Boogie Brigade Beer Finder</h1>
+		<header>
+	    <!-- s<div class="container"> -->
+	        <!-- <div class="jumbotron"> -->
+	            <h1 class="text-center"><span><img src="https://media.tenor.co/images/6278698bcd94faf53cf4d6aba694eb6f/raw"></span>Boogie Brigade Beer Finder</h1>
 	            <!-- <hr> -->
 	            <h2 class="text-center">Your Beer is out there</h2>
-	            <br>
-	            <div class="text-center">
-	                <a href="javascript:void(take_snapshot())"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
+	    </header>
+	    	<div class="row">
+	            <div id="my_camera" class="center-block" style="width:320px; height:240px;">	  	
 	            </div>
+	        </div>
+	        </br>
+	        <div class="row">
+	            <a href="javascript:void(take_snapshot())"><button type="button" class=" center-block btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
+	        </div>
+	        </br>
+	        <div class="row">
+	            <div id="my_result" class="center-block" style="width:320px; height:240px;">
+	            </div>
+	        </div>
+	        </br>
+	        <div class="row">
+	            <a href="javascript:void(take_snapshot())"><button type="button" class="center-block btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
 	        </div>
 
 	        <form id="fileform" action="">
@@ -32,12 +46,12 @@
 				      <option value="TYPE_UNSPECIFIED">TYPE_UNSPECIFIED</option> -->
 				      <option value="FACE_DETECTION">FACE_DETECTION</option>
 				      <option value="LOGO_DETECTION">LOGO_DETECTION</option>
-				      <option value="LABEL_DETECTION">LABEL_DETECTION</option>
-				      <option value="TEXT_DETECTION">TEXT_DETECTION</option>
+				      <!-- <option value="LABEL_DETECTION">LABEL_DETECTION</option>
+				      <option value="TEXT_DETECTION">TEXT_DETECTION</option> -->
 				      <!-- <option value="SAFE_SEARCH_DETECTION">SAFE_SEARCH_DETECTION</option>
 				      <option value="IMAGE_PROPERTIES">IMAGE_PROPERTIES</option> -->
     			</select><br /><br />
-			    <div id="my_camera" style="width:320px; height:240px;"></div>
+			    <!-- <div id="my_camera" style="width:320px; height:240px;"></div> -->
 			    <!-- <a href="javascript:void(take_snapshot())">Take Snapshot</a> -->
 			    <br /><br />
 			    <div id="my_result" style="width:320px; height:240px;"></div>
@@ -54,7 +68,7 @@
 			    </script>
 
 			    <!-- <a href="javascript:void(take_snapshot())">Take Snapshot</a> -->
-			    <input type="file" name="fileField" accept="image/*;capture=camera"><br /><br />
+			    <input type="file" name="fileField"><br /><br />
 			    <input type="submit" name="submit" value="Submit">
 			</form>
 
@@ -86,7 +100,7 @@
 	                 <a href="https://github.com/jrs341/boogie_brigade">GitHub Repo</a></p>
 	            </div>
 	        </footer>
-	    </div>
+	    <!-- </div> -->
 
 	</body>
 </html>
