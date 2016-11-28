@@ -15,18 +15,37 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css"></link>
 </head>
 	<body>
-	    <div class="container">
-	        <div class="jumbotron">
-	            <h1 class="text-center"><span><IMG SRC="https://media.tenor.co/images/6278698bcd94faf53cf4d6aba694eb6f/raw"></span>Boogie Brigade Beer Finder</h1>
-	            <!-- <hr> -->
-	            <h2 class="text-center">Your Beer is out there</h2>
-	            <br>
-	            <div class="text-center">
-	                <a href=""><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
+		<header>
+	   
+	        <h1 class="text-center"><span><img src="https://media.tenor.co/images/6278698bcd94faf53cf4d6aba694eb6f/raw"></span>Boogie Brigade Beer Finder</h1>
+	            
+	        <h2 class="text-center">Your Beer is out there</h2>
+
+	    </header>
+
+	    	<div class="row">
+	            <div id="my_camera" class="center-block" style="width:320px; height:240px;">	  	
+	            </div>
+	        </div>
+	        </br>
+
+	        <div class="row">
+	        	<div id="buttons" class="center-block">
+	            	<a id="snapShot" href="javascript:void(take_snapshot())"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-camera"></span></button></a>
 	            </div>
 	        </div>
 
-	        <form id="fileform" action="">
+	        <!-- displayed the result of the snapshot and added a button under the picture -->
+	        <!-- <div class="row">
+	            <div id="my_result" class="center-block" style="width:320px; height:240px;">
+	            </div>
+	        </div>
+	        </br> -->
+	        <!-- <div class="row">
+	            <a href="javascript:void(sendFile())"><button type="button" class="center-block btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
+	        </div> -->
+
+	        <!-- <form id="fileform" action="">
     			<select name="type">
 				      <option value="LANDMARK_DETECTION">LANDMARK_DETECTION</option>
 				      <option value="TYPE_UNSPECIFIED">TYPE_UNSPECIFIED</option>
@@ -36,34 +55,83 @@
 				      <option value="TEXT_DETECTION">TEXT_DETECTION</option>
 				      <option value="SAFE_SEARCH_DETECTION">SAFE_SEARCH_DETECTION</option>
 				      <option value="IMAGE_PROPERTIES">IMAGE_PROPERTIES</option>
-    			</select><br />
-			    <div id="my_camera" style="width:320px; height:240px;"></div>
-			    <div id="my_result"></div>
-
+    			</select><br /><br /> -->
+			    
 			    <script language="JavaScript">
+
 			        Webcam.attach( '#my_camera' );
 
-			        function take_snapshot() {
-			            Webcam.snap( function(data_uri) {
-			                sendFileToCloudVision(data_uri);
-			                // document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
-			            } );
-			        }
-			    </script>
+			        var approveButton = document.createElement('a');
 
-			    <a href="javascript:void(take_snapshot())">Take Snapshot</a>
-			    <input type="file" name="fileField" accept="image/*;capture=camera"><br /><br />
-			    <input type="submit" name="submit" value="Submit">
-			</form>
+			        var retakeButton = document.createElement('a');
+
+			        var picData =[];
+
+			        var detectType = 1;
+			        
+			        // unfreezes the webcam when the retake button is clicked
+
+			        function unfreeze() {
+
+			        	Webcam.unfreeze();
+			        }
+
+			        // when the approve button is clicked this function is called and sends the data stored in picData[0] to google vision api clears the data from the picData array and unfreezes the webcam image
+
+			        function unfreezeAndSend() {
+
+			        	if (detectType === 1) {
+			        		sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
+			        		picData = [];
+			        		detectType ++;
+			        		Webcam.unfreeze();
+			        	} else {
+			        		sendFileToCloudVision(picData[0], 'FACE_DETECTION');
+			        		picData = [];
+			        		detectType = 1;
+			        		Webcam.unfreeze();
+			        	}
+			       	}
+
+			       	// when the snapshot button is clicked this function is called and takes a snapshot pushes the data_uri to the picData array for storage then freezes the picture in the app, appends an approve or retake button
+			        
+			        function take_snapshot() {
+
+			            Webcam.snap(function(data_uri) {
+
+			            	picData.push(data_uri);
+			            
+			                Webcam.freeze();
+
+			                // displays the result of the snapshot
+
+			                // document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
+
+			                approveButton.innerHTML = "<a id='approveSnapShot' href='javascript:void(unfreezeAndSend())'/><button type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-ok'></span>";
+			                
+			                retakeButton.innerHTML = "<a id='approveSnapShot' href='javascript:void(unfreeze())'/><button type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-remove'></span>";
+			                
+			                document.getElementById('buttons').appendChild(approveButton);
+			                
+			                document.getElementById('buttons').appendChild(retakeButton);
+			      
+			            });
+			        }
+
+			    </script>
+			    <!-- below is to upload a file -->
+			   <!--  <input type="file" name="fileField"><br /><br />
+			    <input type="submit" name="submit" value="Submit"> -->
+			<!-- </form> -->
 
   			<code style="white-space:pre" id="results"></code>
-
 
 	        <div class="row">
 	            <div class="col-lg-12">	                
 	                <div class="panel panel-default" hidden="">
 	                    <div class="panel-heading">
 	                        <h4 class="panel-title">Search Results</h4>
+	                        
 	                    </div>
 	                    <div class="panel-body" id="">
 	                    </div>
@@ -83,7 +151,7 @@
 	                 <a href="https://github.com/jrs341/boogie_brigade">GitHub Repo</a></p>
 	            </div>
 	        </footer>
-	    </div>
+	    <!-- </div> -->
 
 	</body>
 </html>
