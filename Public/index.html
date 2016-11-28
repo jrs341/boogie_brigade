@@ -68,9 +68,13 @@
 
 			        var picData =[];
 			        
+			        // unfreezes the webcam when the retake button is clicked
+			        
 			        function unfreeze() {
 			        	Webcam.unfreeze();
 			        }
+
+			        // when the approve button is clicked this function is called and sends the data stored in picData[0] to google vision api clears the data from the picData array and unfreezes the webcam image
 
 			        function unfreezeAndSend() {
 			        	sendFileToCloudVision(picData[0]);
@@ -78,6 +82,8 @@
 			        	Webcam.unfreeze();
 			       	}
 
+			       	// when the snapshot button is clicked this function is called and takes a snapshot pushes the data_uri to the picData array for storage then freezes the picture in the app, appends an approve or retake button
+			        
 			        function take_snapshot() {
 			            Webcam.snap(function(data_uri) {
 			            	picData.push(data_uri);
