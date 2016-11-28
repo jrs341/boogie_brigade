@@ -52,6 +52,7 @@ function processFile (event) {
  */
 function sendFileToCloudVision (content, detectType) {
   content = content.replace('data:image/jpeg;base64,', '');
+  // this defined the type of detection when the select dropdown was active
   // var type = $('#fileform [name=type]').val();
   var type = detectType;
   // Strip out the file prefix when you convert to json.
@@ -81,9 +82,19 @@ function sendFileToCloudVision (content, detectType) {
  * Displays the results.
  */
 function displayJSON (data) {
+  checkImage(data);
   var contents = JSON.stringify(data, null, 4);
   $('#results').text(contents);
+  console.log(data.responses[0].faceAnnotations[0].underExposedLikelihood);
   var evt = new Event('results-displayed');
   evt.results = contents;
   document.dispatchEvent(evt);
+}
+// .joyLikelihood
+
+function checkImage (data) {
+  if (data.responses[0].faceAnnotations[0].underExposedLikelihood == "LIKELY") {
+    console.log('Please retake the picture there was not enough light');
+    $('#instrucitons').text('Please retake the picture there was not enough light');
+  }
 }

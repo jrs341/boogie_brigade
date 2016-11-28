@@ -28,7 +28,9 @@
 	            </div>
 	        </div>
 	        </br>
+	        <div id="instrucitons">
 
+	        </div>
 	        <div class="row">
 	        	<div id="buttons" class="center-block">
 	            	<a id="snapShot" href="javascript:void(take_snapshot())"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-camera"></span></button></a>
@@ -81,20 +83,24 @@
 			        function unfreezeAndSend() {
 
 			        	if (detectType === 1) {
-			        		sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
+			        		// sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
 			        		picData = [];
 			        		detectType ++;
 			        		Webcam.unfreeze();
+			        		// call a function to post api results here
 			        	} else {
 			        		sendFileToCloudVision(picData[0], 'FACE_DETECTION');
 			        		picData = [];
 			        		detectType = 1;
 			        		Webcam.unfreeze();
+			        		// call a funciton to interpret face detection here
 			        	}
 			       	}
 
 			       	// when the snapshot button is clicked this function is called and takes a snapshot pushes the data_uri to the picData array for storage then freezes the picture in the app, appends an approve or retake button
-			        
+			        function faceScore() {
+
+			        }
 			        function take_snapshot() {
 
 			            Webcam.snap(function(data_uri) {
