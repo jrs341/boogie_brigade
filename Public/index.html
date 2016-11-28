@@ -36,14 +36,16 @@
 	            </div>
 	        </div>
 	        </br>
-	        <div class="row">
+
+	        <!-- displayed the result of the snapshot and added a button under the picture -->
+	        <!-- <div class="row">
 	            <div id="my_result" class="center-block" style="width:320px; height:240px;">
 	            </div>
 	        </div>
-	        </br>
-	        <div class="row">
+	        </br> -->
+	        <!-- <div class="row">
 	            <a href="javascript:void(sendFile())"><button type="button" class="center-block btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
-	        </div>
+	        </div> -->
 
 	        <form id="fileform" action="">
     			<select name="type">
@@ -58,32 +60,33 @@
     			</select><br /><br />
 			    
 			    <script language="JavaScript">
-			    $(document).ready(function(){
 			        Webcam.attach( '#my_camera' );
+
+			        var approveButton = document.createElement('div');
+
+			        var picData =[];
+			        
+			        function unfreezeAndSend() {
+			        			sendFileToCloudVision(picData[0]);
+			        			Webcam.unfreeze();
+			       			}
 
 			        function take_snapshot() {
 			            Webcam.snap(function(data_uri) {
-			                // sendFileToCloudVision(data_uri);
+			            	picData.push(data_uri);
+			            
 			                Webcam.freeze();
-			                document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
-			            	document.getElementById('approveSnapShot').innerHTML = 'new button';
-			            	// if (yes then send pic){
-			            	// 	sendFileToCloudVision(data_uri);
-			            	// }else{
-			            	// 	Webcam.unfreeze();
-			            	// }
+
+			                // displays the result of the snapshot
+			                // document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
+
+			                approveButton.innerHTML = "<input type = 'button' value = 'Approve' onClick = 'unfreezeAndSend()'>";
+			                
+			                document.body.appendChild(approveButton);
+			      
 			            });
 			        }
 
-			        function unfreeze() {
-			        	Webcam.unfreeze();
-			        }
-			       
-			        // can i access the data_uri from the webcam.js file?
-			        // function sendFile() {
-			        // 	sendFileToCloudVision(data_uri);
-			        // }
-			    }); 
 			    </script>
 			    <!-- below is to upload a file -->
 			   <!--  <input type="file" name="fileField"><br /><br />
