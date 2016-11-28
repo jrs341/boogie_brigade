@@ -28,7 +28,12 @@
 	        </div>
 	        </br>
 	        <div class="row">
-	            <a href="javascript:void(take_snapshot())"><button type="button" class=" center-block btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
+	        	<div>
+	            	<a id="snapShot" href="javascript:void(take_snapshot())"><button type="button" class="center-block btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
+	            </div>
+	            <div>
+	           		<a id="approveSnapShot">
+	            </div>
 	        </div>
 	        </br>
 	        <div class="row">
@@ -37,7 +42,7 @@
 	        </div>
 	        </br>
 	        <div class="row">
-	            <a href="javascript:void(take_snapshot())"><button type="button" class="center-block btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
+	            <a href="javascript:void(sendFile())"><button type="button" class="center-block btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
 	        </div>
 
 	        <form id="fileform" action="">
@@ -51,25 +56,38 @@
 				      <!-- <option value="SAFE_SEARCH_DETECTION">SAFE_SEARCH_DETECTION</option>
 				      <option value="IMAGE_PROPERTIES">IMAGE_PROPERTIES</option> -->
     			</select><br /><br />
-			    <!-- <div id="my_camera" style="width:320px; height:240px;"></div> -->
-			    <!-- <a href="javascript:void(take_snapshot())">Take Snapshot</a> -->
-			    <br /><br />
-			    <div id="my_result" style="width:320px; height:240px;"></div>
-
+			    
 			    <script language="JavaScript">
+			    $(document).ready(function(){
 			        Webcam.attach( '#my_camera' );
 
 			        function take_snapshot() {
-			            Webcam.snap( function(data_uri) {
-			                sendFileToCloudVision(data_uri);
+			            Webcam.snap(function(data_uri) {
+			                // sendFileToCloudVision(data_uri);
+			                Webcam.freeze();
 			                document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
-			            } );
+			            	document.getElementById('approveSnapShot').innerHTML = 'new button';
+			            	// if (yes then send pic){
+			            	// 	sendFileToCloudVision(data_uri);
+			            	// }else{
+			            	// 	Webcam.unfreeze();
+			            	// }
+			            });
 			        }
-			    </script>
 
-			    <!-- <a href="javascript:void(take_snapshot())">Take Snapshot</a> -->
-			    <input type="file" name="fileField"><br /><br />
-			    <input type="submit" name="submit" value="Submit">
+			        function unfreeze() {
+			        	Webcam.unfreeze();
+			        }
+			       
+			        // can i access the data_uri from the webcam.js file?
+			        // function sendFile() {
+			        // 	sendFileToCloudVision(data_uri);
+			        // }
+			    }); 
+			    </script>
+			    <!-- below is to upload a file -->
+			   <!--  <input type="file" name="fileField"><br /><br />
+			    <input type="submit" name="submit" value="Submit"> -->
 			</form>
 
   			<code style="white-space:pre" id="results"></code>

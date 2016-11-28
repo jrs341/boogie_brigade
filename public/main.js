@@ -16,9 +16,12 @@
 var CV_URL = 'https://vision.googleapis.com/v1/images:annotate?key=' + window.apiKey;
 
 $(function () {
-  $('#fileform').on('submit', uploadFiles);
+  $('#fileform').on('submit', uploadFiles); 
 });
 
+function displayShapShot () {
+  document.getElementById('my_camera').innerHTML = '<img src="'+data_uri+'"/>';
+}
 /**
  * 'submit' event handler - reads the image bytes and sends it to the Cloud
  * Vision API.
