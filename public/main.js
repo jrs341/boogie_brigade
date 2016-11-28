@@ -50,10 +50,10 @@ function processFile (event) {
  * Sends the given file contents to the Cloud Vision API and outputs the
  * results.
  */
-function sendFileToCloudVision (content) {
+function sendFileToCloudVision (content, detectType) {
   content = content.replace('data:image/jpeg;base64,', '');
-  var type = $('#fileform [name=type]').val();
-
+  // var type = $('#fileform [name=type]').val();
+  var type = detectType;
   // Strip out the file prefix when you convert to json.
   var request = {
     requests: [{

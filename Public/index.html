@@ -47,17 +47,17 @@
 	            <a href="javascript:void(sendFile())"><button type="button" class="center-block btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
 	        </div> -->
 
-	        <form id="fileform" action="">
+	        <!-- <form id="fileform" action="">
     			<select name="type">
-				      <!-- <option value="LANDMARK_DETECTION">LANDMARK_DETECTION</option>
-				      <option value="TYPE_UNSPECIFIED">TYPE_UNSPECIFIED</option> -->
+				      <option value="LANDMARK_DETECTION">LANDMARK_DETECTION</option>
+				      <option value="TYPE_UNSPECIFIED">TYPE_UNSPECIFIED</option>
 				      <option value="FACE_DETECTION">FACE_DETECTION</option>
 				      <option value="LOGO_DETECTION">LOGO_DETECTION</option>
-				      <!-- <option value="LABEL_DETECTION">LABEL_DETECTION</option>
-				      <option value="TEXT_DETECTION">TEXT_DETECTION</option> -->
-				      <!-- <option value="SAFE_SEARCH_DETECTION">SAFE_SEARCH_DETECTION</option>
-				      <option value="IMAGE_PROPERTIES">IMAGE_PROPERTIES</option> -->
-    			</select><br /><br />
+				      <option value="LABEL_DETECTION">LABEL_DETECTION</option>
+				      <option value="TEXT_DETECTION">TEXT_DETECTION</option>
+				      <option value="SAFE_SEARCH_DETECTION">SAFE_SEARCH_DETECTION</option>
+				      <option value="IMAGE_PROPERTIES">IMAGE_PROPERTIES</option>
+    			</select><br /><br /> -->
 			    
 			    <script language="JavaScript">
 			        Webcam.attach( '#my_camera' );
@@ -67,9 +67,11 @@
 			        var retakeButton = document.createElement('div');
 
 			        var picData =[];
+
+			        var detectType = 1;
 			        
 			        // unfreezes the webcam when the retake button is clicked
-			        
+
 			        function unfreeze() {
 			        	Webcam.unfreeze();
 			        }
@@ -77,9 +79,17 @@
 			        // when the approve button is clicked this function is called and sends the data stored in picData[0] to google vision api clears the data from the picData array and unfreezes the webcam image
 
 			        function unfreezeAndSend() {
-			        	sendFileToCloudVision(picData[0]);
-			        	picData = [];
-			        	Webcam.unfreeze();
+			        	if (detectType === 1) {
+			        		sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
+			        		picData = [];
+			        		detectType ++;
+			        		Webcam.unfreeze();
+			        	} else {
+			        		sendFileToCloudVision(picData[0], 'FACE_DETECTION');
+			        		picData = [];
+			        		detectType = 1;
+			        		Webcam.unfreeze();
+			        	}
 			       	}
 
 			       	// when the snapshot button is clicked this function is called and takes a snapshot pushes the data_uri to the picData array for storage then freezes the picture in the app, appends an approve or retake button
@@ -91,6 +101,7 @@
 			                Webcam.freeze();
 
 			                // displays the result of the snapshot
+
 			                // document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
 
 			                approveButton.innerHTML = "<input type = 'button' value = 'Approve' onClick = 'unfreezeAndSend()'>";
@@ -106,7 +117,7 @@
 			    <!-- below is to upload a file -->
 			   <!--  <input type="file" name="fileField"><br /><br />
 			    <input type="submit" name="submit" value="Submit"> -->
-			</form>
+			<!-- </form> -->
 
   			<code style="white-space:pre" id="results"></code>
 
