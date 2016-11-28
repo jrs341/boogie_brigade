@@ -64,12 +64,19 @@
 
 			        var approveButton = document.createElement('div');
 
+			        var retakeButton = document.createElement('div');
+
 			        var picData =[];
 			        
+			        function unfreeze() {
+			        	Webcam.unfreeze();
+			        }
+
 			        function unfreezeAndSend() {
-			        			sendFileToCloudVision(picData[0]);
-			        			Webcam.unfreeze();
-			       			}
+			        	sendFileToCloudVision(picData[0]);
+			        	picData = [];
+			        	Webcam.unfreeze();
+			       	}
 
 			        function take_snapshot() {
 			            Webcam.snap(function(data_uri) {
@@ -81,8 +88,10 @@
 			                // document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
 
 			                approveButton.innerHTML = "<input type = 'button' value = 'Approve' onClick = 'unfreezeAndSend()'>";
+			                retakeButton.innerHTML = "<input type = 'button' value = 'Retake' onClick = 'unfreeze()'>";
 			                
 			                document.body.appendChild(approveButton);
+			                document.body.appendChild(retakeButton);
 			      
 			            });
 			        }
