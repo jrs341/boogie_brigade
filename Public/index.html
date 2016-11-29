@@ -32,8 +32,8 @@
 
 	        </div>
 	        <div class="row">
-	        	<div id="buttons" class="center-block">
-	            	<a id="snapShot" href="javascript:void(take_snapshot())"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-camera"></span></button></a>
+	        	<div id="buttons" class="col-m-offset-4 col-m-4 text-center">
+	            	<a id="snapShot" href="javascript:void(take_snapshot())"><button type="button" class="btn btn-lg btn-default col-m-offset-4 col-m-4"><span class="glyphicon glyphicon-camera"></span></button></a>
 	            </div>
 	        </div>
 
@@ -83,13 +83,13 @@
 			        function unfreezeAndSend() {
 
 			        	if (detectType === 1) {
-			        		sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
+			        		// sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
 			        		picData = [];
 			        		detectType ++;
 			        		Webcam.unfreeze();
 			        		// call a function to post api results here and ask if this is the beer your looking for
 			        	} else {
-			        		sendFileToCloudVision(picData[0], 'FACE_DETECTION');
+			        		// sendFileToCloudVision(picData[0], 'FACE_DETECTION');
 			        		picData = [];
 			        		detectType = 1;
 			        		Webcam.unfreeze();

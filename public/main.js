@@ -12,7 +12,9 @@
 // limitations under the License.
 
 'use strict';
-// var webCam = require('./webcam.js');
+
+// var Webcam = require('./webcam.js');
+
 var CV_URL = 'https://vision.googleapis.com/v1/images:annotate?key=' + window.apiKey;
 
 $(function () {
@@ -76,24 +78,42 @@ function sendFileToCloudVision (content, detectType) {
   }).fail(function (jqXHR, textStatus, errorThrown) {
     $('#results').text('ERRORS: ' + textStatus + ' ' + errorThrown);
   }).done(displayJSON);
+  // if (type == 'LOGO_DETECTION') {
+  //   console.log(data.responses[0].logoAnnotations[0].description);
+  // } else {
+  //   checkImage(data);
+  // }
 }
 
 /**
  * Displays the results.
  */
 function displayJSON (data) {
-  checkImage(data);
   var contents = JSON.stringify(data, null, 4);
-  $('#results').text(contents);
-  var evt = new Event('results-displayed');
-  evt.results = contents;
-  document.dispatchEvent(evt);
+  // if (data.responses[0].logoAnnotations[0].description != 'undefined') {
+    // console.log(data.responses[0].logoAnnotations[0].description);
+    $('#results').text(contents);
+    var evt = new Event('results-displayed');
+    evt.results = contents;
+    document.dispatchEvent(evt);
+  // } else {
+    // if (data.responses[0] == 'faceAnnotations') {
+    // checkImage(data);
+    // consol.log('in the if statement');
+    // }
+    //  var contents = JSON.stringify(data, null, 4);
+  //   $('#results').text(contents);
+  //   console.log(data.responses[0].logoAnnotations[0].description);
+  //   var evt = new Event('results-displayed');
+  //   evt.results = contents;
+  //   document.dispatchEvent(evt);
+  // }
 }
 
 function checkImage (data) {
-  if (data.responses[0].faceAnnotations[0].underExposedLikelihood == "LIKELY") {
+  if (data.responses[0].faceAnnotations[0].underExposedLikelihood == "LIKELY" || data.responses[0].faceAnnotations[0].underExposedLikelihood == "POSSIBLE") {
     $('#instrucitons').text('Please retake the picture there was not enough light');
-  } else if (data.responses[0].faceAnnotations[0].blurredLikelihood == "LIKELY") {
+  } else if (data.responses[0].faceAnnotations[0].blurredLikelihood == "LIKELY" || data.responses[0].faceAnnotations[0].blurredLikelihood == "POSSIBLE") {
     $('#instrucitons').text('Please retake the picture it was too blurry');
   }
 }

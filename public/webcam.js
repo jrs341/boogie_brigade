@@ -784,3 +784,5 @@ else {
 }
 
 }(window));
+
+// module.exports = webcam;
