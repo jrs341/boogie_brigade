@@ -13,7 +13,6 @@
 
 'use strict';
 
-// var Webcam = require('./webcam.js');
 var type;
 
 var CV_URL = 'https://vision.googleapis.com/v1/images:annotate?key=' + window.apiKey;
@@ -97,7 +96,17 @@ function displayJSON (data) {
       $('#instructions').text('Is this the name of your beverage ' + data.responses[0].logoAnnotations[0].description + '?');
     } else {
       console.log('face');
-      $('#instructions').text('Is this how you feel about your beverage ' + data.responses[0].faceAnnotations[0].joyLikelihood + '?');
+        if (data.responses[0].faceAnnotations[0].joyLikelihood == "VERY_UNLIKELY" || data.responses[0].faceAnnotations[0].joyLikelihood == "UNLIKELY" ) {
+          $('#instructions').text('Looks like you don\'t like this drink at all, better try another one!   ');
+          $('#instructions').append('<button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button>');
+          $('#instructions').append('<button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>');
+        }else if (data.responses[0].faceAnnotations[0].joyLikelihood == "POSSIBLE"){
+          $('#instructions').text('Looks like your indifferent about this one, maybe the second one will taste better');
+        }else{
+          $('#instructions').text('Looks like your really enjoying that drink, shall we add it to your favorites?');
+          $('#instructions').append('<button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button>');
+          $('#instructions').append('<button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>');
+        }
       checkImage(data);
     }
   }
