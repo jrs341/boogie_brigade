@@ -15,9 +15,16 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css"></link>
 </head>
 	<body>
+		<nav>
+			
+		</nav>
 		<header>
+
+			<div class="text-center">
+				<img src="https://media.tenor.co/images/6278698bcd94faf53cf4d6aba694eb6f/raw">
+			</div>
 	   
-	        <h1 class="text-center"><span><img src="https://media.tenor.co/images/6278698bcd94faf53cf4d6aba694eb6f/raw"></span>Boogie Brigade Beer Finder</h1>
+	        <h1 class="text-center">Boogie Brigade Beer Finder</h1>
 	            
 	        <h2 class="text-center">Your Beer is out there</h2>
 
@@ -28,12 +35,12 @@
 	            </div>
 	        </div>
 	        </br>
-	        <div id="instrucitons">
-
+	        <div class="text-center" style="height:20px;">
+	        	<p id="instructions" > Click to take a photo of the label</p>
 	        </div>
 	        <div class="row">
-	        	<div id="buttons" class="col-m-offset-4 col-m-4 text-center">
-	            	<a id="snapShot" href="javascript:void(take_snapshot())"><button type="button" class="btn btn-lg btn-default col-m-offset-4 col-m-4"><span class="glyphicon glyphicon-camera"></span></button></a>
+	        	<div id="buttons" class="text-center">
+	            	<a id="snapShot" href="javascript:void(take_snapshot())"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-camera"></span></button></a>
 	            </div>
 	        </div>
 
@@ -87,12 +94,14 @@
 			        		picData = [];
 			        		detectType ++;
 			        		Webcam.unfreeze();
+			        		// document.getElementById("instructions").innerHTML = "Take a picture of your face now";
 			        		// call a function to post api results here and ask if this is the beer your looking for
 			        	} else {
-			        		// sendFileToCloudVision(picData[0], 'FACE_DETECTION');
+			        		sendFileToCloudVision(picData[0], 'FACE_DETECTION');
 			        		picData = [];
 			        		detectType = 1;
 			        		Webcam.unfreeze();
+			        		// document.getElementById("instructions").innerHTML = "Click to take a photo of the label";
 			        		// call a funciton to interpret face detection here
 			        	}
 			       	}
@@ -130,7 +139,7 @@
 			    <input type="submit" name="submit" value="Submit"> -->
 			<!-- </form> -->
 
-  			<code style="white-space:pre" id="results"></code>
+  			
 
 	        <div class="row">
 	            <div class="col-lg-12">	                
@@ -156,6 +165,7 @@
 	                <p>Control Panel</p>
 	                 <a href="https://github.com/jrs341/boogie_brigade">GitHub Repo</a></p>
 	            </div>
+	            <code style="white-space:pre" id="results"></code>
 	        </footer>
 	    <!-- </div> -->
 
