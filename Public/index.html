@@ -83,11 +83,11 @@
 			        function unfreezeAndSend() {
 
 			        	if (detectType === 1) {
-			        		// sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
+			        		sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
 			        		picData = [];
 			        		detectType ++;
 			        		Webcam.unfreeze();
-			        		// call a function to post api results here
+			        		// call a function to post api results here and ask if this is the beer your looking for
 			        	} else {
 			        		sendFileToCloudVision(picData[0], 'FACE_DETECTION');
 			        		picData = [];

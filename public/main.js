@@ -85,16 +85,15 @@ function displayJSON (data) {
   checkImage(data);
   var contents = JSON.stringify(data, null, 4);
   $('#results').text(contents);
-  console.log(data.responses[0].faceAnnotations[0].underExposedLikelihood);
   var evt = new Event('results-displayed');
   evt.results = contents;
   document.dispatchEvent(evt);
 }
-// .joyLikelihood
 
 function checkImage (data) {
   if (data.responses[0].faceAnnotations[0].underExposedLikelihood == "LIKELY") {
-    console.log('Please retake the picture there was not enough light');
     $('#instrucitons').text('Please retake the picture there was not enough light');
+  } else if (data.responses[0].faceAnnotations[0].blurredLikelihood == "LIKELY") {
+    $('#instrucitons').text('Please retake the picture it was too blurry');
   }
 }
