@@ -144,11 +144,9 @@
 			        	$('#instructions').text('Please retake the picture of the logo');
 			       	}
 
-			       	function facePic() {
+			       	function approveFacePic() {
 			       		console.log('take face pic');
-			       		$('#snapShot').show();
-			       		$('#approveSnapShot').hide();
-			        	$('#retakeSnapShot').hide();
+			       		unfreezeAndSend();
 			       	}
 
 			       	function retakeFacePic() {
@@ -157,6 +155,7 @@
 			       		$('#snapShot').show();
 			       		$('#approveSnapShot').hide();
 			        	$('#retakeSnapShot').hide();
+			        	$('#instructions').text('Please retake your face picture');
 			       		picNum = 2;
 			       		piData = [];
 			       		
@@ -178,7 +177,7 @@
   							$('#retakeButtonLink').attr('href', 'javascript:void(retakeLogo())');
 
   							if (picNum > 1) {
-  								$('#approveButtonLink').attr('href', 'javascript:void(facePic())');
+  								$('#approveButtonLink').attr('href', 'javascript:void(approveFacePic())');
   								$('#retakeButtonLink').attr('href', 'javascript:void(retakeFacePic())');
   							}
 
