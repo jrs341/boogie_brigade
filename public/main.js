@@ -13,9 +13,11 @@
 
 'use strict';
 
-// var BreweryDb = require('node-brewerydb');
+// var require = require('../node_modules/require');
 
-// var request = require("request");
+// var BreweryDb = require('../node_modules/node-brewerydb');
+
+// var request = require('../node_modules/request');
 
 // var client = new BreweryDb({apiKey:"2b575873cd6e77e40e7d4676df8c32b5"});
 
@@ -105,8 +107,10 @@ function displayJSON (data) {
 
     if (key == 'logoAnnotations') {
       console.log('logo');
+      $('#approveButtonLink').attr('href', 'javascript:void(sendToApi())');
+      $('#retakeButtonLink').attr('href', 'javascript:void(noSendToApi())');
       $('#instructions').text('Is this the name of your beverage ' + data.responses[0].logoAnnotations[0].description + '?');
-      likeButtons();
+      // approve();
       // client.beers({name: data.responses[0].logoAnnotations[0].description}, function(err, data) {
       // console.log(data);
       // });
@@ -114,12 +118,12 @@ function displayJSON (data) {
       console.log('face');
         if (data.responses[0].faceAnnotations[0].joyLikelihood == "VERY_UNLIKELY" || data.responses[0].faceAnnotations[0].joyLikelihood == "UNLIKELY" ) {
           $('#instructions').text('Looks like you don\'t like this drink at all, better try another one!   ');
-          likeButtons();
+          // approve();
         }else if (data.responses[0].faceAnnotations[0].joyLikelihood == "POSSIBLE"){
           $('#instructions').text('Looks like your indifferent about this one, maybe the second one will taste better');
         }else{
           $('#instructions').text('Looks like your really enjoying that drink, shall we add it to your favorites?');
-          likeButtons();
+          // approve();
         }
       checkImage(data);
     }
@@ -138,9 +142,10 @@ function checkImage (data) {
   }
 }
 
-function likeButtons() {
-  $('#instructions').append('<button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button>');
-  $('#instructions').append('<button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>');
+function approve() {
+  $('#snapShot').hide();
+  $('#approveButtonLink').attr('href', 'javascript:void(testYes())');
+  $('#retakeButtonLink').attr('href', 'javascript:void(testNo())');
 }
 
 // var BreweryDb = require('node-brewerydb');
@@ -178,5 +183,8 @@ function isEmpty(obj) {
     // console.log('it is empty');
     picNum = 1;
     $('#instructions').text('oops we didn\'t get that please retake the picture');
+    $('#snapShot').show();
+    $('#approveSnapShot').hide();
+    $('#retakeSnapShot').hide();
     return true;
 }

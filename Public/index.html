@@ -42,7 +42,11 @@
 
 	        <div class="row">
 	        	<div id="buttons" class="text-center">
-	            	<a href="javascript:void(take_snapshot())"><button id="snapShot" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-camera"></span></button></a>
+	            	<a id='snapShotLink' href="javascript:void(take_snapshot())"/><button id="snapShot" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-camera"></span></button></a>
+
+	            	<a id='approveButtonLink' href='javascript:void(unfreezeAndSend())'/><button id='approveSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-ok'></span></button>
+
+	            	<a id='retakeButtonLink' href='javascript:void(unfreeze())'/><button id='retakeSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-remove'></span></button>
 	            </div>
 	        </div>
 
@@ -70,15 +74,14 @@
 			    
 			    <script language="JavaScript">
 
+			    	var picData =[];
+
+			    	var picNum = 1;
+
 			        Webcam.attach( '#my_camera' );
 
-			        var approveButton = document.createElement('a');
-
-			        var retakeButton = document.createElement('a');
-
-			        var picData =[];
-
-			        var picNum = 1;
+			        $('#approveSnapShot').hide();
+			        $('#retakeSnapShot').hide();
 			        
 			        // unfreezes the webcam when the retake button is clicked
 
@@ -92,17 +95,41 @@
 			        function unfreezeAndSend() {
 
 			        	if (picNum === 1) {
-			        		// sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
+			        		sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
 			        		picData = [];
 			        		picNum ++;
 			        		Webcam.unfreeze();
 			        		
 			        	} else {
-			        		// sendFileToCloudVision(picData[0], 'FACE_DETECTION');
+			        		sendFileToCloudVision(picData[0], 'FACE_DETECTION');
 			        		picData = [];
 			        		picNum = 1;
 			        		Webcam.unfreeze();
 			        	}
+			       	}
+
+			       	function testYes() {
+			       		console.log('test yes');
+			       		unfreezeAndSend();
+			       		// api query goes here
+			       	}
+
+			       	function testNo() {
+			       		console.log('test no');
+			       		unfreeze();
+			       		take_snapshot();
+			       	}
+
+			       	function sendToApi() {
+			       		console.log('take face pic');
+			       		$('#snapShot').show();
+			       		$('#approveSnapShot').hide();
+			        	$('#retakeSnapShot').hide();
+			       	}
+
+			       	function noSendToApi() {
+			       		console.log('nothing sent');
+			       		// retake pic goes here
 			       	}
 			       
 			        function take_snapshot() {
@@ -113,17 +140,16 @@
 			            
 			                Webcam.freeze();
 
+			                $('#approveSnapShot').show();
+			        		$('#retakeSnapShot').show();
+			        		$('#instructions').text('is this the picture you would like to send?')
+			                $('#snapShot').hide();
+  							$('#approveButtonLink').attr('href', 'javascript:void(testYes())');
+  							$('#retakeButtonLink').attr('href', 'javascript:void(testNo())');
+
 			                // displays the result of the snapshot
 
 			                // document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
-
-			                approveButton.innerHTML = "<a href='javascript:void(unfreezeAndSend())'/><button id='approveSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-ok'></span>";
-			                
-			                retakeButton.innerHTML = "<a href='javascript:void(unfreeze())'/><button id='retakeSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-remove'></span>";
-			                
-			                document.getElementById('buttons').appendChild(approveButton);
-			                
-			                document.getElementById('buttons').appendChild(retakeButton);
 			            });
 			        }
 			    </script>
