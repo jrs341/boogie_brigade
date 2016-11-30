@@ -49,29 +49,7 @@
 	            	<a id='retakeButtonLink' href='javascript:void(unfreeze())'/><button id='retakeSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-remove'></span></button>
 	            </div>
 	        </div>
-
-	        <!-- displayed the result of the snapshot and added a button under the picture -->
-	        <!-- <div class="row">
-	            <div id="my_result" class="center-block" style="width:320px; height:240px;">
-	            </div>
-	        </div>
-	        </br> -->
-	        <!-- <div class="row">
-	            <a href="javascript:void(sendFile())"><button type="button" class="center-block btn btn-lg btn-default"><span class="glyphicon glyphicon-glass"></span></button></a>
-	        </div> -->
-
-	        <!-- <form id="fileform" action="">
-    			<select name="type">
-				      <option value="LANDMARK_DETECTION">LANDMARK_DETECTION</option>
-				      <option value="TYPE_UNSPECIFIED">TYPE_UNSPECIFIED</option>
-				      <option value="FACE_DETECTION">FACE_DETECTION</option>
-				      <option value="LOGO_DETECTION">LOGO_DETECTION</option>
-				      <option value="LABEL_DETECTION">LABEL_DETECTION</option>
-				      <option value="TEXT_DETECTION">TEXT_DETECTION</option>
-				      <option value="SAFE_SEARCH_DETECTION">SAFE_SEARCH_DETECTION</option>
-				      <option value="IMAGE_PROPERTIES">IMAGE_PROPERTIES</option>
-    			</select><br /><br /> -->
-			    
+    
 			    <script language="JavaScript">
 
 			    	var picData =[];
@@ -108,20 +86,6 @@
 			        	}
 			       	}
 
-			       	// function testYes() {
-			       		
-			       	// 	// api query goes here
-			       	// }
-
-			       	// function testNo() {
-			       	// 	console.log('test no');
-			       	// 	unfreeze();
-			       	// 	$('#snapShot').show();
-			       	// 	$('#approveSnapShot').hide();
-			        // 	$('#retakeSnapShot').hide();
-
-			       	// }
-
 			       	function sendToApi() {
 			       		console.log('api searching for ');
 			       		// api search will go here
@@ -157,8 +121,7 @@
 			        	$('#retakeSnapShot').hide();
 			        	$('#instructions').text('Please retake your face picture');
 			       		picNum = 2;
-			       		piData = [];
-			       		
+			       		piData = [];	
 			       	}
 			       
 			        function take_snapshot() {
@@ -180,18 +143,14 @@
   								$('#approveButtonLink').attr('href', 'javascript:void(approveFacePic())');
   								$('#retakeButtonLink').attr('href', 'javascript:void(retakeFacePic())');
   							}
-
-			                // displays the result of the snapshot
-
-			                // document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
 			            });
 			        }
 			    </script>
+			    
 			    <!-- below is to upload a file -->
 			   <!--  <input type="file" name="fileField"><br /><br />
 			    <input type="submit" name="submit" value="Submit"> -->
-			<!-- </form> -->
-
+			
 	        <div class="row">
 	            <div class="col-lg-12">	                
 	                <div class="panel panel-default" hidden="">
