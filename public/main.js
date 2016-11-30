@@ -116,6 +116,9 @@ function displayJSON (data) {
       // });
     } else {
       console.log('face');
+      $('#approveSnapShot').hide();
+      $('#retakeSnapShot').hide();
+      $('#buttons').append('<a id="snapShotLink" href="javascript:void(refresh())"/><button id="refresh" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-refresh"></span></button></a>');
         if (data.responses[0].faceAnnotations[0].joyLikelihood == "VERY_UNLIKELY" || data.responses[0].faceAnnotations[0].joyLikelihood == "UNLIKELY" ) {
           $('#instructions').text('Looks like you don\'t like this drink at all, better try another one!   ');
           // approve();
@@ -141,22 +144,6 @@ function checkImage (data) {
     $('#instructions').text('Please retake the picture it was too blurry');
   }
 }
-
-// function approve() {
-//   $('#snapShot').hide();
-//   $('#approveButtonLink').attr('href', 'javascript:void(testYes())');
-//   $('#retakeButtonLink').attr('href', 'javascript:void(testNo())');
-// }
-
-// var BreweryDb = require('node-brewerydb');
-// var request = require("request");
-
-// var client = new BreweryDb({apiKey:"2b575873cd6e77e40e7d4676df8c32b5"});
-// client.beers({name: 'bud light'}, function(err, data) {
-  
-//   console.log(data);
-    
-// });
 
 // reference http://stackoverflow.com/questions/4994201/is-object-empty
 function isEmpty(obj) {
