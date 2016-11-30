@@ -108,7 +108,7 @@ function displayJSON (data) {
     if (key == 'logoAnnotations') {
       console.log('logo');
       $('#approveButtonLink').attr('href', 'javascript:void(sendToApi())');
-      $('#retakeButtonLink').attr('href', 'javascript:void(noSendToApi())');
+      $('#retakeButtonLink').attr('href', 'javascript:void(retakeLogo())');
       $('#instructions').text('Is this the name of your beverage ' + data.responses[0].logoAnnotations[0].description + '?');
       // approve();
       // client.beers({name: data.responses[0].logoAnnotations[0].description}, function(err, data) {
@@ -142,11 +142,11 @@ function checkImage (data) {
   }
 }
 
-function approve() {
-  $('#snapShot').hide();
-  $('#approveButtonLink').attr('href', 'javascript:void(testYes())');
-  $('#retakeButtonLink').attr('href', 'javascript:void(testNo())');
-}
+// function approve() {
+//   $('#snapShot').hide();
+//   $('#approveButtonLink').attr('href', 'javascript:void(testYes())');
+//   $('#retakeButtonLink').attr('href', 'javascript:void(testNo())');
+// }
 
 // var BreweryDb = require('node-brewerydb');
 // var request = require("request");

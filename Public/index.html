@@ -108,28 +108,58 @@
 			        	}
 			       	}
 
-			       	function testYes() {
-			       		console.log('test yes');
-			       		unfreezeAndSend();
-			       		// api query goes here
-			       	}
+			       	// function testYes() {
+			       		
+			       	// 	// api query goes here
+			       	// }
 
-			       	function testNo() {
-			       		console.log('test no');
-			       		unfreeze();
-			       		take_snapshot();
-			       	}
+			       	// function testNo() {
+			       	// 	console.log('test no');
+			       	// 	unfreeze();
+			       	// 	$('#snapShot').show();
+			       	// 	$('#approveSnapShot').hide();
+			        // 	$('#retakeSnapShot').hide();
+
+			       	// }
 
 			       	function sendToApi() {
+			       		console.log('api searching for ');
+			       		// api search will go here
+			       		$('#snapShot').show();
+			       		$('#approveSnapShot').hide();
+			        	$('#retakeSnapShot').hide();
+			        	$('#instructions').text('Now take a picture of your face');
+			       	}
+
+			       	function approveLogo() {
+			       		console.log('logo approved');
+			       		unfreezeAndSend();
+			       	}
+
+			       	function retakeLogo() {
+			       		unfreeze();
+			       		$('#snapShot').show();
+			       		$('#approveSnapShot').hide();
+			        	$('#retakeSnapShot').hide();
+			        	$('#instructions').text('Please retake the picture of the logo');
+			       	}
+
+			       	function facePic() {
 			       		console.log('take face pic');
 			       		$('#snapShot').show();
 			       		$('#approveSnapShot').hide();
 			        	$('#retakeSnapShot').hide();
 			       	}
 
-			       	function noSendToApi() {
-			       		console.log('nothing sent');
-			       		// retake pic goes here
+			       	function retakeFacePic() {
+			       		console.log('retakeFacePic');
+			       		unfreeze();
+			       		$('#snapShot').show();
+			       		$('#approveSnapShot').hide();
+			        	$('#retakeSnapShot').hide();
+			       		picNum = 2;
+			       		piData = [];
+			       		
 			       	}
 			       
 			        function take_snapshot() {
@@ -144,8 +174,13 @@
 			        		$('#retakeSnapShot').show();
 			        		$('#instructions').text('is this the picture you would like to send?')
 			                $('#snapShot').hide();
-  							$('#approveButtonLink').attr('href', 'javascript:void(testYes())');
-  							$('#retakeButtonLink').attr('href', 'javascript:void(testNo())');
+  							$('#approveButtonLink').attr('href', 'javascript:void(approveLogo())');
+  							$('#retakeButtonLink').attr('href', 'javascript:void(retakeLogo())');
+
+  							if (picNum > 1) {
+  								$('#approveButtonLink').attr('href', 'javascript:void(facePic())');
+  								$('#retakeButtonLink').attr('href', 'javascript:void(retakeFacePic())');
+  							}
 
 			                // displays the result of the snapshot
 
