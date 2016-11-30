@@ -13,6 +13,12 @@
 
 'use strict';
 
+// var BreweryDb = require('node-brewerydb');
+
+// var request = require("request");
+
+// var client = new BreweryDb({apiKey:"2b575873cd6e77e40e7d4676df8c32b5"});
+
 var type;
 
 var CV_URL = 'https://vision.googleapis.com/v1/images:annotate?key=' + window.apiKey;
@@ -94,18 +100,20 @@ function displayJSON (data) {
     if (key == 'logoAnnotations') {
       console.log('logo');
       $('#instructions').text('Is this the name of your beverage ' + data.responses[0].logoAnnotations[0].description + '?');
+      likeButtons();
+      // client.beers({name: data.responses[0].logoAnnotations[0].description}, function(err, data) {
+      // console.log(data);
+      // });
     } else {
       console.log('face');
         if (data.responses[0].faceAnnotations[0].joyLikelihood == "VERY_UNLIKELY" || data.responses[0].faceAnnotations[0].joyLikelihood == "UNLIKELY" ) {
           $('#instructions').text('Looks like you don\'t like this drink at all, better try another one!   ');
-          $('#instructions').append('<button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button>');
-          $('#instructions').append('<button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>');
+          likeButtons();
         }else if (data.responses[0].faceAnnotations[0].joyLikelihood == "POSSIBLE"){
           $('#instructions').text('Looks like your indifferent about this one, maybe the second one will taste better');
         }else{
           $('#instructions').text('Looks like your really enjoying that drink, shall we add it to your favorites?');
-          $('#instructions').append('<button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button>');
-          $('#instructions').append('<button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>');
+          likeButtons();
         }
       checkImage(data);
     }
@@ -123,3 +131,18 @@ function checkImage (data) {
     $('#instructions').text('Please retake the picture it was too blurry');
   }
 }
+
+function likeButtons() {
+  $('#instructions').append('<button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button>');
+  $('#instructions').append('<button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>');
+}
+
+// var BreweryDb = require('node-brewerydb');
+// var request = require("request");
+
+// var client = new BreweryDb({apiKey:"2b575873cd6e77e40e7d4676df8c32b5"});
+// client.beers({name: 'bud light'}, function(err, data) {
+  
+//   console.log(data);
+    
+// });

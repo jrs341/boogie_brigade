@@ -36,7 +36,7 @@
 	        </div>
 	        </br>
 
-	        <div class="text-center" style="height:20px;">
+	        <div class="text-center" style="height:50px;">
 	        	<p id="instructions" > Click to take a photo of the label</p>
 	        </div>
 
@@ -92,7 +92,7 @@
 			        function unfreezeAndSend() {
 
 			        	if (picNum === 1) {
-			        		// sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
+			        		sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
 			        		picData = [];
 			        		picNum ++;
 			        		Webcam.unfreeze();
