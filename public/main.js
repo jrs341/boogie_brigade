@@ -153,6 +153,7 @@ function likeButtons() {
     
 // });
 
+// reference http://stackoverflow.com/questions/4994201/is-object-empty
 function isEmpty(obj) {
 
     // null and undefined are "empty"
@@ -174,7 +175,7 @@ function isEmpty(obj) {
     for (var key in obj) {
         if (hasOwnProperty.call(obj, key)) return false;
     }
-    console.log('it is empty');
+    // console.log('it is empty');
     picNum = 1;
     $('#instructions').text('oops we didn\'t get that please retake the picture');
     return true;

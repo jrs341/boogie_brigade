@@ -2,5 +2,18 @@ body {
 	background: yellow;
 }
 
+#instructions {
+	font-size: 1.4em;
+}
 
+#snapShot {
+	background-color: blue;
+}
 
+#approveSnapShot {
+	background-color: green;
+}
+
+#retakeSnapShot {
+	background-color: red;
+}

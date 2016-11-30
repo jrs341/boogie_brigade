@@ -36,13 +36,13 @@
 	        </div>
 	        </br>
 
-	        <div class="text-center" style="height:50px;">
+	        <div class="row text-center" style="height:50px;">
 	        	<p id="instructions" > Click to take a photo of the label</p>
 	        </div>
 
 	        <div class="row">
 	        	<div id="buttons" class="text-center">
-	            	<a id="snapShot" href="javascript:void(take_snapshot())"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-camera"></span></button></a>
+	            	<a href="javascript:void(take_snapshot())"><button id="snapShot" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-camera"></span></button></a>
 	            </div>
 	        </div>
 
@@ -92,13 +92,13 @@
 			        function unfreezeAndSend() {
 
 			        	if (picNum === 1) {
-			        		sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
+			        		// sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
 			        		picData = [];
 			        		picNum ++;
 			        		Webcam.unfreeze();
 			        		
 			        	} else {
-			        		sendFileToCloudVision(picData[0], 'FACE_DETECTION');
+			        		// sendFileToCloudVision(picData[0], 'FACE_DETECTION');
 			        		picData = [];
 			        		picNum = 1;
 			        		Webcam.unfreeze();
@@ -117,9 +117,9 @@
 
 			                // document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
 
-			                approveButton.innerHTML = "<a id='approveSnapShot' href='javascript:void(unfreezeAndSend())'/><button type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-ok'></span>";
+			                approveButton.innerHTML = "<a href='javascript:void(unfreezeAndSend())'/><button id='approveSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-ok'></span>";
 			                
-			                retakeButton.innerHTML = "<a id='approveSnapShot' href='javascript:void(unfreeze())'/><button type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-remove'></span>";
+			                retakeButton.innerHTML = "<a href='javascript:void(unfreeze())'/><button id='retakeSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-remove'></span>";
 			                
 			                document.getElementById('buttons').appendChild(approveButton);
 			                
