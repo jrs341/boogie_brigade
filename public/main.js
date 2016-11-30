@@ -12,8 +12,20 @@
 // limitations under the License.
 
 'use strict';
-// var webCam = require('./webcam.js');
+
+// var require = require('../node_modules/require');
+
+// var BreweryDb = require('../node_modules/node-brewerydb');
+
+// var request = require('../node_modules/request');
+
+// var client = new BreweryDb({apiKey:"2b575873cd6e77e40e7d4676df8c32b5"});
+
+var type;
+
 var CV_URL = 'https://vision.googleapis.com/v1/images:annotate?key=' + window.apiKey;
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
 
 $(function () {
   $('#fileform').on('submit', uploadFiles); 
@@ -52,6 +64,7 @@ function processFile (event) {
  */
 function sendFileToCloudVision (content, detectType) {
   content = content.replace('data:image/jpeg;base64,', '');
+  // this defined the type of detection when the select dropdown was active
   // var type = $('#fileform [name=type]').val();
   var type = detectType;
   // Strip out the file prefix when you convert to json.
@@ -81,9 +94,84 @@ function sendFileToCloudVision (content, detectType) {
  * Displays the results.
  */
 function displayJSON (data) {
+
   var contents = JSON.stringify(data, null, 4);
+
+  console.log(data.responses[0]);
+
+  isEmpty(data.responses[0]);
+
+  var key;
+
+  for(key in data.responses[0]) {
+
+    if (key == 'logoAnnotations') {
+      console.log('logo');
+      $('#approveButtonLink').attr('href', 'javascript:void(sendToApi())');
+      $('#retakeButtonLink').attr('href', 'javascript:void(retakeLogo())');
+      $('#instructions').text('Is this the name of your beverage ' + data.responses[0].logoAnnotations[0].description + '?');
+      // approve();
+      // client.beers({name: data.responses[0].logoAnnotations[0].description}, function(err, data) {
+      // console.log(data);
+      // });
+    } else {
+      console.log('face');
+      $('#approveSnapShot').hide();
+      $('#retakeSnapShot').hide();
+      $('#buttons').append('<a id="snapShotLink" href="javascript:void(refresh())"/><button id="refresh" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-refresh"></span></button></a>');
+        if (data.responses[0].faceAnnotations[0].joyLikelihood == "VERY_UNLIKELY" || data.responses[0].faceAnnotations[0].joyLikelihood == "UNLIKELY" ) {
+          $('#instructions').text('Looks like you don\'t like this drink at all, better try another one!   ');
+          // approve();
+        }else if (data.responses[0].faceAnnotations[0].joyLikelihood == "POSSIBLE"){
+          $('#instructions').text('Looks like your indifferent about this one, maybe the second one will taste better');
+        }else{
+          $('#instructions').text('Looks like your really enjoying that drink, shall we add it to your favorites?');
+          // approve();
+        }
+      checkImage(data);
+    }
+  }
   $('#results').text(contents);
   var evt = new Event('results-displayed');
   evt.results = contents;
   document.dispatchEvent(evt);
+}
+
+function checkImage (data) {
+  if (data.responses[0].faceAnnotations[0].underExposedLikelihood == "VERY_LIKELY" || data.responses[0].faceAnnotations[0].underExposedLikelihood == "LIKELY" || data.responses[0].faceAnnotations[0].underExposedLikelihood == "POSSIBLE" || data.responses[0].faceAnnotations[0].underExposedLikelihood == "UNLIKELY") {
+    $('#instructions').text('Please retake the picture there was not enough light');
+  } else if (data.responses[0].faceAnnotations[0].blurredLikelihood == "LIKELY" || data.responses[0].faceAnnotations[0].blurredLikelihood == "POSSIBLE") {
+    $('#instructions').text('Please retake the picture it was too blurry');
+  }
+}
+
+// reference http://stackoverflow.com/questions/4994201/is-object-empty
+function isEmpty(obj) {
+
+    // null and undefined are "empty"
+    if (obj == null) return true;
+
+    // Assume if it has a length property with a non-zero value
+    // that that property is correct.
+    if (obj.length > 0)    return false;
+    if (obj.length === 0)  return true;
+
+    // If it isn't an object at this point
+    // it is empty, but it can't be anything *but* empty
+    // Is it empty?  Depends on your application.
+    if (typeof obj !== "object") return true;
+
+    // Otherwise, does it have any properties of its own?
+    // Note that this doesn't handle
+    // toString and valueOf enumeration bugs in IE < 9
+    for (var key in obj) {
+        if (hasOwnProperty.call(obj, key)) return false;
+    }
+    // console.log('it is empty');
+    picNum = 1;
+    $('#instructions').text('oops we didn\'t get that please retake the picture');
+    $('#snapShot').show();
+    $('#approveSnapShot').hide();
+    $('#retakeSnapShot').hide();
+    return true;
 }

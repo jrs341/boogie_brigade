@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Boogie Brigade Beer</title>
-
     <!-- Latest compiled and minified CSS & JS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery.js"></script>
@@ -15,9 +14,17 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css"></link>
 </head>
 	<body>
+		<nav>
+			
+		</nav>
+
 		<header>
+
+			<div class="text-center">
+				<img src="https://media.tenor.co/images/6278698bcd94faf53cf4d6aba694eb6f/raw">
+			</div>
 	   
-	        <h1 class="text-center"><span><img src="https://media.tenor.co/images/6278698bcd94faf53cf4d6aba694eb6f/raw"></span>Boogie Brigade Beer Finder</h1>
+	        <h1 class="text-center">Boogie Brigade Beer Finder</h1>
 	            
 	        <h2 class="text-center">Your Beer is out there</h2>
 
@@ -29,9 +36,17 @@
 	        </div>
 	        </br>
 
+	        <div class="row text-center" style="height:50px;">
+	        	<p id="instructions" > Click to take a photo of the label</p>
+	        </div>
+
 	        <div class="row">
-	        	<div id="buttons" class="center-block">
-	            	<a id="snapShot" href="javascript:void(take_snapshot())"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-camera"></span></button></a>
+	        	<div id="buttons" class="text-center">
+	            	<a id='snapShotLink' href="javascript:void(take_snapshot())"/><button id="snapShot" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-camera"></span></button></a>
+
+	            	<a id='approveButtonLink' href='javascript:void(unfreezeAndSend())'/><button id='approveSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-ok'></span></button>
+
+	            	<a id='retakeButtonLink' href='javascript:void(unfreeze())'/><button id='retakeSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-remove'></span></button>
 	            </div>
 	        </div>
 
@@ -59,15 +74,14 @@
 			    
 			    <script language="JavaScript">
 
+			    	var picData =[];
+
+			    	var picNum = 1;
+
 			        Webcam.attach( '#my_camera' );
 
-			        var approveButton = document.createElement('a');
-
-			        var retakeButton = document.createElement('a');
-
-			        var picData =[];
-
-			        var detectType = 1;
+			        $('#approveSnapShot').hide();
+			        $('#retakeSnapShot').hide();
 			        
 			        // unfreezes the webcam when the retake button is clicked
 
@@ -80,21 +94,73 @@
 
 			        function unfreezeAndSend() {
 
-			        	if (detectType === 1) {
+			        	if (picNum === 1) {
 			        		sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
 			        		picData = [];
-			        		detectType ++;
+			        		picNum ++;
 			        		Webcam.unfreeze();
+			        		
 			        	} else {
 			        		sendFileToCloudVision(picData[0], 'FACE_DETECTION');
 			        		picData = [];
-			        		detectType = 1;
+			        		picNum = 1;
 			        		Webcam.unfreeze();
 			        	}
 			       	}
 
-			       	// when the snapshot button is clicked this function is called and takes a snapshot pushes the data_uri to the picData array for storage then freezes the picture in the app, appends an approve or retake button
-			        
+			       	// function testYes() {
+			       		
+			       	// 	// api query goes here
+			       	// }
+
+			       	// function testNo() {
+			       	// 	console.log('test no');
+			       	// 	unfreeze();
+			       	// 	$('#snapShot').show();
+			       	// 	$('#approveSnapShot').hide();
+			        // 	$('#retakeSnapShot').hide();
+
+			       	// }
+
+			       	function sendToApi() {
+			       		console.log('api searching for ');
+			       		// api search will go here
+			       		$('#snapShot').show();
+			       		$('#approveSnapShot').hide();
+			        	$('#retakeSnapShot').hide();
+			        	$('#instructions').text('Now take a picture of your face');
+			       	}
+
+			       	function approveLogo() {
+			       		console.log('logo approved');
+			       		unfreezeAndSend();
+			       	}
+
+			       	function retakeLogo() {
+			       		unfreeze();
+			       		$('#snapShot').show();
+			       		$('#approveSnapShot').hide();
+			        	$('#retakeSnapShot').hide();
+			        	$('#instructions').text('Please retake the picture of the logo');
+			       	}
+
+			       	function approveFacePic() {
+			       		console.log('take face pic');
+			       		unfreezeAndSend();
+			       	}
+
+			       	function retakeFacePic() {
+			       		console.log('retakeFacePic');
+			       		unfreeze();
+			       		$('#snapShot').show();
+			       		$('#approveSnapShot').hide();
+			        	$('#retakeSnapShot').hide();
+			        	$('#instructions').text('Please retake your face picture');
+			       		picNum = 2;
+			       		piData = [];
+			       		
+			       	}
+			       
 			        function take_snapshot() {
 
 			            Webcam.snap(function(data_uri) {
@@ -103,39 +169,39 @@
 			            
 			                Webcam.freeze();
 
+			                $('#approveSnapShot').show();
+			        		$('#retakeSnapShot').show();
+			        		$('#instructions').text('is this the picture you would like to send?')
+			                $('#snapShot').hide();
+  							$('#approveButtonLink').attr('href', 'javascript:void(approveLogo())');
+  							$('#retakeButtonLink').attr('href', 'javascript:void(retakeLogo())');
+
+  							if (picNum > 1) {
+  								$('#approveButtonLink').attr('href', 'javascript:void(approveFacePic())');
+  								$('#retakeButtonLink').attr('href', 'javascript:void(retakeFacePic())');
+  							}
+
 			                // displays the result of the snapshot
 
 			                // document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
-
-			                approveButton.innerHTML = "<a id='approveSnapShot' href='javascript:void(unfreezeAndSend())'/><button type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-ok'></span>";
-			                
-			                retakeButton.innerHTML = "<a id='approveSnapShot' href='javascript:void(unfreeze())'/><button type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-remove'></span>";
-			                
-			                document.getElementById('buttons').appendChild(approveButton);
-			                
-			                document.getElementById('buttons').appendChild(retakeButton);
-			      
 			            });
 			        }
-
 			    </script>
 			    <!-- below is to upload a file -->
 			   <!--  <input type="file" name="fileField"><br /><br />
 			    <input type="submit" name="submit" value="Submit"> -->
 			<!-- </form> -->
 
-  			<code style="white-space:pre" id="results"></code>
-
 	        <div class="row">
 	            <div class="col-lg-12">	                
 	                <div class="panel panel-default" hidden="">
 	                    <div class="panel-heading">
-	                        <h4 class="panel-title">Search Results</h4>
-	                        
+	                        <h4 class="panel-title">Search Results</h4>  
 	                    </div>
 	                    <div class="panel-body" id="">
 	                    </div>
-	                </div>	                
+	                </div>
+
 	                <div class="panel panel-default" hidden="">
 	                    <div class="panel-heading">
 	                        <h4 class="panel-title">Favorite Beers</h4>
@@ -145,13 +211,14 @@
 	                </div>
 	            </div>
 	        </div>
+
 	        <footer class="footer">
 	            <div class="container">
 	                <p>Control Panel</p>
 	                 <a href="https://github.com/jrs341/boogie_brigade">GitHub Repo</a></p>
 	            </div>
+	            <code style="white-space:pre" id="results"></code>
 	        </footer>
-	    <!-- </div> -->
 
 	</body>
 </html>

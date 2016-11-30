@@ -2,8 +2,48 @@ body {
 	background: yellow;
 }
 
+#instructions {
+	font-size: 1.4em;
+}
 
-.jumbotron {
-	background-color: transparent;
+#snapShot {
+	background-color: blue;
+}
+
+button#snapShot:active {
+	border-color: none;
+}
+
+button#snapShot:focus {
+	outline: none;
+}
+
+#approveSnapShot {
+	background-color: green;
+	margin-right: 3.5px;
+}
+
+button#approveSnapShot:active {
+	border-color: none;
+}
+
+button#approveSnapShot:focus {
+	outline: none;
+}
+
+#retakeSnapShot {
+	background-color: red;
+}
+
+button#retakeSnapShot:active {
+	border-color: none;
+}
+
+button#retakeSnapShot:focus {
+	outline: none;
+}
+
+span.glyphicon.glyphicon {
+	color: white;
 }
 
