@@ -117,7 +117,7 @@ function displayJSON (data) {
       console.log('face');
       $('#approveSnapShot').hide();
       $('#retakeSnapShot').hide();
-      $('#buttons').append('<a id="snapShotLink" href="javascript:void(refresh())"/><button id="refresh" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-refresh"></span></button></a>');
+      $('#refresh').show();
         if (data.responses[0].faceAnnotations[0].joyLikelihood == "VERY_UNLIKELY" || data.responses[0].faceAnnotations[0].joyLikelihood == "UNLIKELY" ) {
           $('#instructions').text('Looks like you don\'t like this drink at all, better try another one!   ');
         }else if (data.responses[0].faceAnnotations[0].joyLikelihood == "POSSIBLE"){
