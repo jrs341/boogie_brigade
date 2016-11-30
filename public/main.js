@@ -110,7 +110,6 @@ function displayJSON (data) {
       $('#approveButtonLink').attr('href', 'javascript:void(sendToApi())');
       $('#retakeButtonLink').attr('href', 'javascript:void(retakeLogo())');
       $('#instructions').text('Is this the name of your beverage ' + data.responses[0].logoAnnotations[0].description + '?');
-      // approve();
       // client.beers({name: data.responses[0].logoAnnotations[0].description}, function(err, data) {
       // console.log(data);
       // });
@@ -118,15 +117,13 @@ function displayJSON (data) {
       console.log('face');
       $('#approveSnapShot').hide();
       $('#retakeSnapShot').hide();
-      $('#buttons').append('<a id="snapShotLink" href="javascript:void(refresh())"/><button id="refresh" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-refresh"></span></button></a>');
+      $('#refresh').show();
         if (data.responses[0].faceAnnotations[0].joyLikelihood == "VERY_UNLIKELY" || data.responses[0].faceAnnotations[0].joyLikelihood == "UNLIKELY" ) {
           $('#instructions').text('Looks like you don\'t like this drink at all, better try another one!   ');
-          // approve();
         }else if (data.responses[0].faceAnnotations[0].joyLikelihood == "POSSIBLE"){
           $('#instructions').text('Looks like your indifferent about this one, maybe the second one will taste better');
         }else{
           $('#instructions').text('Looks like your really enjoying that drink, shall we add it to your favorites?');
-          // approve();
         }
       checkImage(data);
     }
@@ -137,6 +134,7 @@ function displayJSON (data) {
   document.dispatchEvent(evt);
 }
 
+// checks returned data to see if the image was underexposed or blurry
 function checkImage (data) {
   if (data.responses[0].faceAnnotations[0].underExposedLikelihood == "VERY_LIKELY" || data.responses[0].faceAnnotations[0].underExposedLikelihood == "LIKELY" || data.responses[0].faceAnnotations[0].underExposedLikelihood == "POSSIBLE" || data.responses[0].faceAnnotations[0].underExposedLikelihood == "UNLIKELY") {
     $('#instructions').text('Please retake the picture there was not enough light');
@@ -145,6 +143,7 @@ function checkImage (data) {
   }
 }
 
+// checks to make sure the object returned is not empty
 // reference http://stackoverflow.com/questions/4994201/is-object-empty
 function isEmpty(obj) {
 
