@@ -1,0 +1,33 @@
+
+<HEAD>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!-- I highly suggest to add atleast some protection to make the script into an external js document... that way its just a tiny bit more secure... -->
+
+function LogIn(){
+loggedin=false;
+username="";
+password="";
+username=prompt("Username:","");
+username=username.toLowerCase();
+password=prompt("Password:","");
+password=password.toLowerCase();
+if (username=="guest" && password=="login") { 
+loggedin=true;
+window.location="home-page.html";
+}
+if (username=="guest2" && password=="login2") {
+loggedin=true;
+window.location="home-page2.html";
+}
+if (loggedin==false) {
+alert("Invalid login!");
+}
+}
+</SCRIPT> 
+
+<BODY>
+
+<center>
+<form><input type=button value="Login!" onClick="LogIn()"></form>
+</center>
