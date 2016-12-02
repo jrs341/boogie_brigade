@@ -15,3 +15,5 @@
 window.apiKey = 'AIzaSyCLDEOIzLrpzYc5iUFuO2yh6Ih5QMii3NI';
 
 window.apiKeyBeer = '2b575873cd6e77e40e7d4676df8c32b5';
+
+window.apiKeyBeer1 = '9bd89d02adec985df1eee09f96816434';
