@@ -13,17 +13,13 @@
 
 'use strict';
 
-// var require = require('../node_modules/require');
-
-// var BreweryDb = require('../node_modules/node-brewerydb');
-
-// var request = require('../node_modules/request');
-
 // var client = new BreweryDb({apiKey:"2b575873cd6e77e40e7d4676df8c32b5"});
 
 var type;
 
 var CV_URL = 'https://vision.googleapis.com/v1/images:annotate?key=' + window.apiKey;
+
+var Beer_db = 'http://api.brewerydb.com/v2/?key=' + window.apiKeyBeer;
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 
