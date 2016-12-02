@@ -1,5 +1,21 @@
 body {
-    padding-top: 90px;
+    background: #f4e8c6;
+}
+
+.logo {
+	height: 240px;
+}
+
+#name {
+	font-size: 45px;
+	/*font-family: 'Kaushan Script', cursive;*/
+	/*font-family: 'Great Vibes', cursive;*/
+	font-family: 'Ewert', cursive;
+	-webkit-text-fill-color: red;
+	word-wrap: break-word;
+	position: absolute;
+	margin-top: 50px;
+	
 }
 .panel-login {
 	border-color: #ccc;
