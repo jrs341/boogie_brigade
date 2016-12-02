@@ -1,200 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Boogie Brigade Beer</title>
-    <!-- Latest compiled and minified CSS & JS -->
-    <link href="https://fonts.googleapis.com/css?family=Ewert|Great+Vibes|Kaushan+Script" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script type="text/javascript" src="key.js"></script>
-    <script type="text/javascript" src="main.js"></script>
-    <script src="webcam.js"></script>
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css"></link>
-</head>
-	<body>
-		<nav>
-			
-		</nav>
 
-		<header>
+<HEAD>
 
-			<div class="row logo">
-			
-			<!-- src="https://media.tenor.co/images/6278698bcd94faf53cf4d6aba694eb6f/raw"> -->
-				<!-- <div class="col-m-3"> -->
-				<img class="col-m-3" style="width: 240px; height: 240px;" src="./assets/images/bottleCap.png">
-				<!-- </div> -->
-				<!-- <div class="col-m-9"> -->
-				<p id="name" class="text-center col-m-9" style="display: inline-block;" >Boogie Brigade Beer Finder</p>
-				<!-- </div> -->
-	            
-	        	<!-- <h2 class="text-center">Your Beer is out there</h2> -->
+<SCRIPT LANGUAGE="JavaScript">
+<!-- I highly suggest to add atleast some protection to make the script into an external js document... that way its just a tiny bit more secure... -->
 
+function LogIn(){
+loggedin=false;
+username="";
+password="";
+username=prompt("Username:","");
+username=username.toLowerCase();
+password=prompt("Password:","");
+password=password.toLowerCase();
+if (username=="guest" && password=="login") { 
+loggedin=true;
+window.location="home-page.html";
+}
+if (username=="guest2" && password=="login2") {
+loggedin=true;
+window.location="home-page2.html";
+}
+if (loggedin==false) {
+alert("Invalid login!");
+}
+}
+</SCRIPT> 
+
+<BODY>
+<div class="container">
+    	<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="panel panel-login">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-6">
+								<a href="#" class="active" id="login-form-link">Login</a>
+							</div>
+							<div class="col-xs-6">
+								<a href="#" id="register-form-link">Register</a>
+							</div>
+						</div>
+						<hr>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<form id="login-form" action="http://phpoll.com/login/process" method="post" role="form" style="display: block;">
+									<div class="form-group">
+										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+									</div>
+									<div class="form-group text-center">
+										<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+										<label for="remember"> Remember Me</label>
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="text-center">
+													<a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+								<form id="register-form" action="http://phpoll.com/register/process" method="post" role="form" style="display: none;">
+									<div class="form-group">
+										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+									</div>
+									<div class="form-group">
+										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+									</div>
+									<div class="form-group">
+										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+												<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-	   
-	        
+		</div>
+	</div>
 
-	    </header>
 
-	    	<div class="row">
-	            <div id="my_camera" class="center-block" style="width:320px; height:240px;">	  	
-	            </div>
-	        </div>
-	        </br>
-
-	        <div class="row text-center" style="height:50px;">
-	        	<p id="instructions" > Click to take a photo of the label</p>
-	        </div>
-
-	        <div class="row">
-	        	<div id="buttons" class="text-center">
-	            	<a id='snapShotLink' href="javascript:void(take_snapshot())"/><button id="snapShot" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-camera"></span></button></a>
-
-	            	<a id='approveButtonLink' href='javascript:void(unfreezeAndSend())'/><button id='approveSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-ok'></span></button>
-
-	            	<a id='retakeButtonLink' href='javascript:void(unfreeze())'/><button id='retakeSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-remove'></span></button>
-
-	            	<a id="refreshLink" href="javascript:void(refresh())"/><button id="refresh" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-refresh"></span></button></a>
-	            </div>
-	        </div>
-    
-			    <script language="JavaScript">
-
-			    	var picData =[];
-
-			    	var picNum = 1;
-
-			        Webcam.attach( '#my_camera' );
-
-			        $('#approveSnapShot').hide();
-			        $('#retakeSnapShot').hide();
-			        $('#refresh').hide();
-			        
-			        // unfreezes the webcam when the retake button is clicked
-
-			        function unfreeze() {
-
-			        	Webcam.unfreeze();
-			        }
-
-			        // when the approve button is clicked this function is called and sends the data stored in picData[0] to google vision api clears the data from the picData array and unfreezes the webcam image
-
-			        function unfreezeAndSend() {
-
-			        	if (picNum === 1) {
-			        		sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
-			        		picData = [];
-			        		picNum ++;
-			        		Webcam.unfreeze();
-			        		
-			        	} else {
-			        		sendFileToCloudVision(picData[0], 'FACE_DETECTION');
-			        		picData = [];
-			        		picNum = 1;
-			        		Webcam.unfreeze();
-			        	}
-			       	}
-
-			       	function sendToApi() {
-			       		console.log('api searching for ');
-			       		// api search will go here
-			       		$('#snapShot').show();
-			       		$('#approveSnapShot').hide();
-			        	$('#retakeSnapShot').hide();
-			        	$('#instructions').text('Now take a picture of your face');
-			       	}
-
-			       	function approveLogo() {
-			       		console.log('logo approved');
-			       		unfreezeAndSend();
-			       	}
-
-			       	function retakeLogo() {
-			       		unfreeze();
-			       		$('#snapShot').show();
-			       		$('#approveSnapShot').hide();
-			        	$('#retakeSnapShot').hide();
-			        	$('#instructions').text('Please retake the picture of the logo');
-			       	}
-
-			       	function approveFacePic() {
-			       		console.log('take face pic');
-			       		unfreezeAndSend();
-			       	}
-
-			       	function retakeFacePic() {
-			       		console.log('retakeFacePic');
-			       		unfreeze();
-			       		$('#snapShot').show();
-			       		$('#approveSnapShot').hide();
-			        	$('#retakeSnapShot').hide();
-			        	$('#instructions').text('Please retake your face picture');
-			       		picNum = 2;
-			       		piData = [];	
-			       	}
-			       
-			        function take_snapshot() {
-
-			            Webcam.snap(function(data_uri) {
-
-			            	picData.push(data_uri);
-			            
-			                Webcam.freeze();
-
-			                $('#approveSnapShot').show();
-			        		$('#retakeSnapShot').show();
-			        		$('#instructions').text('is this the picture you would like to send?')
-			                $('#snapShot').hide();
-  							$('#approveButtonLink').attr('href', 'javascript:void(approveLogo())');
-  							$('#retakeButtonLink').attr('href', 'javascript:void(retakeLogo())');
-
-  							if (picNum > 1) {
-  								$('#approveButtonLink').attr('href', 'javascript:void(approveFacePic())');
-  								$('#retakeButtonLink').attr('href', 'javascript:void(retakeFacePic())');
-  							}
-			            });
-			        }
-
-			        function refresh() {
-			        	console.log('refresh');
-			        	window.location.reload(false);
-			        }
-			    </script>
-
-			    <!-- below is to upload a file -->
-			   <!--  <input type="file" name="fileField"><br /><br />
-			    <input type="submit" name="submit" value="Submit"> -->
-			
-	        <div class="row">
-	            <div class="col-lg-12">	                
-	                <div class="panel panel-default" hidden="">
-	                    <div class="panel-heading">
-	                        <h4 class="panel-title">Search Results</h4>  
-	                    </div>
-	                    <div class="panel-body" id="">
-	                    </div>
-	                </div>
-
-	                <div class="panel panel-default" hidden="">
-	                    <div class="panel-heading">
-	                        <h4 class="panel-title">Favorite Beers</h4>
-	                    </div>
-	                    <div class="panel-body" id="">
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-
-	        <footer class="footer">
-	            <div class="container">
-	                <p>Control Panel</p>
-	                 <a href="https://github.com/jrs341/boogie_brigade">GitHub Repo</a></p>
-	            </div>
-	            <code style="white-space:pre" id="results"></code>
-	        </footer>
-
-	</body>
-</html>
+<center>
+<form><input type=button value="Login!" onClick="LogIn()"></form>
+</center>
