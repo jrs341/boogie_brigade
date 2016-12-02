@@ -1,32 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<HEAD>
+<head>
 
-<SCRIPT LANGUAGE="JavaScript">
-<!-- I highly suggest to add atleast some protection to make the script into an external js document... that way its just a tiny bit more secure... -->
+<meta charset="UTF-8">
+    <title>Boogie Brigade Login</title>
+<link href="https://fonts.googleapis.com/css?family=Ewert|Great+Vibes|Kaushan+Script" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="assets/css/loginstyle.css"></link>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script type="text/javascript" src="loginpage.js"></script>
 
-function LogIn(){
-loggedin=false;
-username="";
-password="";
-username=prompt("Username:","");
-username=username.toLowerCase();
-password=prompt("Password:","");
-password=password.toLowerCase();
-if (username=="guest" && password=="login") { 
-loggedin=true;
-window.location="home-page.html";
-}
-if (username=="guest2" && password=="login2") {
-loggedin=true;
-window.location="home-page2.html";
-}
-if (loggedin==false) {
-alert("Invalid login!");
-}
-}
-</SCRIPT> 
+<body>
 
-<BODY>
+<header>
+
+	<div class="row logo">
+			
+			<!-- src="https://media.tenor.co/images/6278698bcd94faf53cf4d6aba694eb6f/raw"> -->
+			
+		<img class="col-m-3" style="width: 240px; height: 240px;" src="./assets/images/bottleCap.png">
+				
+		<p id="name" class="text-center col-m-9" style="display: inline-block;" >Boogie Brigade Beer Finder</p>
+
+	</div>
+
+</header>
+	   
 <div class="container">
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -102,7 +102,3 @@ alert("Invalid login!");
 		</div>
 	</div>
 
-
-<center>
-<form><input type=button value="Login!" onClick="LogIn()"></form>
-</center>
