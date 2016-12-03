@@ -1,0 +1,169 @@
+$(document).ready(function() {
+    console.log("Is this thing on?");
+    $("#button-search").click(function(e) {
+        e.preventDefault();
+        //clear previous results
+        $(".results-template .col-lg-12").html("");
+        $("#result-number").html(""); 
+        //capture user input
+        var userInput = $("#read-search").val();
+        // restore user input to placeholder text
+        $("#read-search").val("");
+        getRequest(userInput);      
+    });
+    // how come I don't need to add userInput here again?
+    $("#read-search").keyup(function(event){
+        if(event.keyCode == 13){
+            $("#button-search").click();
+            //clear previous results
+            $(".results-template .col-lg-12").html("");
+            $("#result-number").html(""); 
+        }
+    });
+});
+function getRequest(userInput) {
+    // var params = {
+    //  key: insert key here
+    //  q: userInput,
+    //  withBreweries: "Y",
+    //  type: "beer",
+    // }
+    // $.ajax({
+    //  url: 'http://api.brewerydb.com/v2/search',
+    //  data: params,
+    //  dataType: 'json',
+    //  type: 'GET'
+    $.getJSON('/search/' + userInput).done(function(data) {
+        showBeerResults(data);
+        //update number of search results spans
+        var numberOfResults = data.length;
+        console.log(numberOfResults);
+        // create objects to fix result tenses
+        var resultOptions = {
+            thereIs: 'There is ',
+            result: 'result for: ',
+            thereAre: 'There are ',
+            results: 'results for: '
+        };
+        // update search result display
+        $("#result-number").text(numberOfResults);
+        if (numberOfResults > 1) {               
+            console.log(numberOfResults);
+            $("#result-counter #there").text(resultOptions.thereAre);
+            $("#result-counter #result").text(resultOptions.results);
+        } 
+        else {
+            $("#result-counter #there").text(resultOptions.thereIs);
+            $("#result-counter #result").text(resultOptions.result);
+        }
+        $("#search-result").text(userInput);
+        $("#result-counter-container").fadeIn(300);
+        //console.log(data);
+    })
+}
+function showBeerResults(results) {
+    console.log(results);
+    // data is defined by api. results turns into what user's input. ".data" allows access into object
+    // var peeledResults = results.data;
+    // console.log(results.data);
+    // iterate through results and append to page
+    // index keeps track of position
+    // item can be named anything. item is what allows us to access the info inside the object
+    $.each(results, function(index, item) {
+        var name = item.name;
+        var abv = item.abv;
+        var category = "";
+            if (!item.style){
+                category = "Not Available";
+            } else {
+                category = item.style.category.name;
+            }
+        var created = item.createDate;
+        var description = item.style.description;
+        var template = '<dl class="results">';
+            if (!abv) {
+                abv = "Not Available";
+            }
+            if (!item.style){
+                category = "Not Available";
+            }
+            if (!category) {
+                category = "Not Available";
+            }
+            if (!created) {
+                category = "Not Available";
+            }
+            if (!description) {
+                description = "Not Available";
+            }
+        //append items to page using a template
+        template += '<dt>Beer Name:</dt>' +
+                '<dd class="name">'+ name +'</dd>' +
+            '<dt>Abv:<dt>' +
+                '<dd class="abv">'+ abv +'</dd>' +
+            '<dt>Category:</dt>' +
+                '<dd class="category">'+ category +'</dd>' +
+            '<dt>Date Created:</dt>' +
+                '<dd class="created">' + created +'</dd>' +
+            '<dt>Description:</dt>' +
+                '<dd class="description">' + description +'</dd>' 
+                + displayBreweries(item.breweries) +
+            '</dl>';
+            //remove hidden class, append template
+            $(".results-template").removeClass("hidden").fadeIn(300);
+            $(".results-template .col-lg-12").append(template);
+    });
+}
+var displayBreweries = function(breweries) {
+    var breweriesTemplate = "";
+    $.each(breweries, function(index, breweries) {
+        var breweryWebsite = breweries.website;
+        var breweryName = breweries.name;
+        if (!breweryWebsite) {
+            breweryWebsite = "Not Available"; 
+        }
+        if (!breweryName) {
+            breweryName = "Not Available";    
+        }
+        breweriesTemplate += '<dt>Brewery:</dt>' +
+                '<dd class="brewery-name"><a href="' + breweryWebsite + '"target="_blank">' + breweryName +'</dd>' 
+    });
+    return breweriesTemplate;
+}
+function refreshSearch() {
+    $("#button-refresh").click(function() {
+        $("#read-search").val("");
+        $(".results-template").fadeOut(300);
+        $("#result-counter-container").fadeOut(300);
+    });
+}
+refreshSearch();
+// $('.unanswered-getter').submit( function(e){
+//      e.preventDefault();
+//      // zero out results if previous search has run
+//      $('.results').html('');
+//      var template = "";
+//      // append items to page using a template
+//      $.each(item.breweries, function(index, brewery) {
+//          template += '<dl class="results">' +
+//          '<dt>Beer Name:</dt>' +
+//              '<dd class="name">'+ name +'</dd>' +
+//          '<dt>Abv:<dt>' +
+//              '<dd class="abv">'+ abv +'</dd>' +
+//          '<dt>Category:</dt>' +
+//              '<dd class="category">'+ category +'</dd>' +
+//          '<dt>Date Created:</dt>' +
+//              '<dd class="created">' + created +'</dd>' +
+//          '<dt>Description:</dt>' +
+//              '<dd class="description">' + description +'</dd>' +
+//          '<dt>Brewery Name:</dt>' +
+//              '<dd class="brewery-name">' + brewery.name + '</dd>' +
+//          '<dt>Website:</dt>' +
+//              '<dd class="website">' + brewery.website +'</dd>'
+//          +'</dl>';
+//          });
+//          //remove hidden cass, append template
+//          $(".results-template").removeClass("hidden");
+//          $(".results-template .col-lg-12").append(template);
+//  });
+// }
