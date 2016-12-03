@@ -86,6 +86,120 @@ function sendFileToCloudVision (content, detectType) {
   }).done(displayJSON);
 }
 
+function getRequest(beer) {
+
+  console.log('get request');
+              var params = {
+               key: '2b575873cd6e77e40e7d4676df8c32b5',
+               q: beer,
+               withBreweries: "N",
+               type: "beer",
+              }
+              $.ajax({
+               url: 'http://api.brewerydb.com/v2/search',
+               data: params,
+               dataType: 'json',
+               type: 'GET'});
+              $.getJSON('http://api.brewerydb.com/v2/search?key=2b575873cd6e77e40e7d4676df8c32b5&q=' + beer).done(function(data) {
+                  showBeerResults(data);
+                  //update number of search results spans
+                  var numberOfResults = data.length;
+                  console.log(numberOfResults);
+                  // create objects to fix result tenses
+                  var resultOptions = {
+                      thereIs: 'There is ',
+                      result: 'result for: ',
+                      thereAre: 'There are ',
+                      results: 'results for: '
+                  };
+                  // update search result display
+                  $("#result-number").text(numberOfResults);
+                  if (numberOfResults > 1) {               
+                      console.log(numberOfResults);
+                      $("#result-counter #there").text(resultOptions.thereAre);
+                      $("#result-counter #result").text(resultOptions.results);
+                  } 
+                  else {
+                      $("#result-counter #there").text(resultOptions.thereIs);
+                      $("#result-counter #result").text(resultOptions.result);
+                  }
+                  $("#search-result").text(userInput);
+                  $("#result-counter-container").fadeIn(300);
+                  //console.log(data);
+              })         
+}
+
+// function showBeerResults(results) {
+//     console.log(results);
+//     // data is defined by api. results turns into what user's input. ".data" allows access into object
+//     // var peeledResults = results.data;
+//     // console.log(results.data);
+//     // iterate through results and append to page
+//     // index keeps track of position
+//     // item can be named anything. item is what allows us to access the info inside the object
+//     $.each(results, function(index, item) {
+//         var name = item.name;
+//         var abv = item.abv;
+//         var category = "";
+//             if (!item.style){
+//                 category = "Not Available";
+//             } else {
+//                 category = item.style.category.name;
+//             }
+//         var created = item.createDate;
+//         var description = item.style.description;
+//         var template = '<dl class="results">';
+//             if (!abv) {
+//                 abv = "Not Available";
+//             }
+//             if (!item.style){
+//                 category = "Not Available";
+//             }
+//             if (!category) {
+//                 category = "Not Available";
+//             }
+//             if (!created) {
+//                 category = "Not Available";
+//             }
+//             if (!description) {
+//                 description = "Not Available";
+//             }
+//         //append items to page using a template
+//         template += '<dt>Beer Name:</dt>' +
+//                 '<dd class="name">'+ name +'</dd>' +
+//             '<dt>Abv:<dt>' +
+//                 '<dd class="abv">'+ abv +'</dd>' +
+//             '<dt>Category:</dt>' +
+//                 '<dd class="category">'+ category +'</dd>' +
+//             '<dt>Date Created:</dt>' +
+//                 '<dd class="created">' + created +'</dd>' +
+//             '<dt>Description:</dt>' +
+//                 '<dd class="description">' + description +'</dd>' 
+//                 + displayBreweries(item.breweries) +
+//             '</dl>';
+//             //remove hidden class, append template
+//             $(".results-template").removeClass("hidden").fadeIn(300);
+//             $(".results-template .col-lg-12").append(template);
+//     });
+// }
+
+// var displayBreweries = function(breweries) {
+//     var breweriesTemplate = "";
+//     $.each(breweries, function(index, breweries) {
+//         var breweryWebsite = breweries.website;
+//         var breweryName = breweries.name;
+//         if (!breweryWebsite) {
+//             breweryWebsite = "Not Available"; 
+//         }
+//         if (!breweryName) {
+//             breweryName = "Not Available";    
+//         }
+//         breweriesTemplate += '<dt>Brewery:</dt>' +
+//                 '<dd class="brewery-name"><a href="' + breweryWebsite + '"target="_blank">' + breweryName +'</dd>' 
+//     });
+//     return breweriesTemplate;
+// }
+
 /**
  * Displays the results.
  */
@@ -106,6 +220,8 @@ function displayJSON (data) {
       $('#approveButtonLink').attr('href', 'javascript:void(sendToApi())');
       $('#retakeButtonLink').attr('href', 'javascript:void(retakeLogo())');
       $('#instructions').text('Is this the name of your beverage ' + data.responses[0].logoAnnotations[0].description + '?');
+      var beer = data.responses[0].logoAnnotations[0].description;
+      getRequest(beer);
       // client.beers({name: data.responses[0].logoAnnotations[0].description}, function(err, data) {
       // console.log(data);
       // });
