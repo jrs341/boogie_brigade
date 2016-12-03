@@ -15,14 +15,16 @@
 
 <header>
 
-	<div class="row logo">
+	<div class="container">
+		<div class="row logo">
 			
 			<!-- src="https://media.tenor.co/images/6278698bcd94faf53cf4d6aba694eb6f/raw"> -->
 			
-		<img class="col-m-3" style="width: 240px; height: 240px;" src="./assets/images/bottleCap.png">
+			<img class="col-m-3" style="width: 240px; height: 240px;" src="./assets/images/bottleCap.png">
 				
-		<p id="name" class="text-center col-m-9" style="display: inline-block;" >Boogie Brigade Beer Finder</p>
+			<p id="name" class="text-center col-m-9" style="display: inline-block;" >Boogie Brigade Beer Finder</p>
 
+		</div>
 	</div>
 
 </header>
@@ -43,9 +45,14 @@
 						<hr>
 					</div>
 					<div class="panel-body">
+					<!-- http://phpoll.com/login/process -->
+					<!-- action="localhost:3000/app.html" method="post" -->
 						<div class="row">
 							<div class="col-lg-12">
-								<form id="login-form" action="http://phpoll.com/login/process" method="post" role="form" style="display: block;">
+								<form id="login-form" href="localhost3000:/app.html"
+								<!-- http://phpoll.com/login/process -->
+					<!-- action="localhost:3000/app.html" method="post" -->
+								  role="form" style="display: block;">
 									<div class="form-group">
 										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
 									</div>
@@ -59,7 +66,7 @@
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+												<input type="submit" name="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
 											</div>
 										</div>
 									</div>

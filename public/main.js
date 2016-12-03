@@ -14,7 +14,6 @@
 'use strict';
 
 // var client = new BreweryDb({apiKey:"2b575873cd6e77e40e7d4676df8c32b5"});
-
 var type;
 
 var CV_URL = 'https://vision.googleapis.com/v1/images:annotate?key=' + window.apiKey;
@@ -86,6 +85,7 @@ function sendFileToCloudVision (content, detectType) {
   }).done(displayJSON);
 }
 
+// will not accept query from localhost
 function getRequest(beer) {
 
   console.log('get request');
@@ -98,7 +98,7 @@ function getRequest(beer) {
               $.ajax({
                url: 'http://api.brewerydb.com/v2/search',
                data: params,
-               dataType: 'json',
+               dataType: 'jsonp',
                type: 'GET'});
               $.getJSON('http://api.brewerydb.com/v2/search?key=2b575873cd6e77e40e7d4676df8c32b5&q=' + beer).done(function(data) {
                   showBeerResults(data);
@@ -220,23 +220,28 @@ function displayJSON (data) {
       $('#approveButtonLink').attr('href', 'javascript:void(sendToApi())');
       $('#retakeButtonLink').attr('href', 'javascript:void(retakeLogo())');
       $('#instructions').text('Is this the name of your beverage ' + data.responses[0].logoAnnotations[0].description + '?');
-      var beer = data.responses[0].logoAnnotations[0].description;
+      window.beer = data.responses[0].logoAnnotations[0].description;
       getRequest(beer);
       // client.beers({name: data.responses[0].logoAnnotations[0].description}, function(err, data) {
       // console.log(data);
       // });
     } else {
       console.log('face');
-      $('#approveSnapShot').hide();
-      $('#retakeSnapShot').hide();
-      $('#refresh').show();
         if (data.responses[0].faceAnnotations[0].joyLikelihood == "VERY_UNLIKELY" || data.responses[0].faceAnnotations[0].joyLikelihood == "UNLIKELY" ) {
           $('#instructions').text('Looks like you don\'t like this drink at all, better try another one!   ');
+          $('#approveSnapShot').show();
+          $('#retakeSnapShot').show();
         }else if (data.responses[0].faceAnnotations[0].joyLikelihood == "POSSIBLE"){
           $('#instructions').text('Looks like your indifferent about this one, maybe the second one will taste better');
+          $('#refresh').show();
         }else{
           $('#instructions').text('Looks like your really enjoying that drink, shall we add it to your favorites?');
-        }
+          $('#approveButtonLink').attr('href', 'javascript:void(addToFav())');
+          $('#retakeButtonLink').attr('href', 'javascript:void(noToFav())');
+          $('#approveSnapShot').show();
+          $('#retakeSnapShot').show();
+        } 
+
       checkImage(data);
     }
   }
