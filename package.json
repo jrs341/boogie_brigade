@@ -5,13 +5,13 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node main.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jrs341/boogie_brigade.git"
   },
-  "author": "",
+  "author": "Jason Sinn, Wilkie, Mike",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jrs341/boogie_brigade/issues"
@@ -19,5 +19,6 @@
   "homepage": "https://github.com/jrs341/boogie_brigade#readme",
   "dependencies": {
     "express": "^4.14.0"
-  }
+  },
+  "devDependencies": {}
 }
