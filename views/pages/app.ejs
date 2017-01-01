@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Boogie Brigade Beer</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link href="https://fonts.googleapis.com/css?family=Ewert|Great+Vibes|Kaushan+Script" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script type="text/javascript" src="key.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <script src="webcam.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css"></link>
+</head>
+	<body>
+		<nav>
+			
+		</nav>
+
+		<header>
+		<div class="container">
+			<div class="row logo">
+			
+			<!-- src="https://media.tenor.co/images/6278698bcd94faf53cf4d6aba694eb6f/raw"> -->
+				<!-- <div class="col-m-3"> -->
+				<img class="col-m-3" style="width: 240px; height: 240px;" src="./assets/images/bottleCap.png">
+				<!-- </div> -->
+				<!-- <div class="col-m-9"> -->
+				<p id="name" class="text-center col-m-offset-2 col-m-7" style="display: inline-block;" >Boogie Brigade Beer Finder</p>
+				<!-- </div> -->
+	            
+	        	<!-- <h2 class="text-center">Your Beer is out there</h2> -->
+
+			</div>
+		</div>
+	   
+	        
+
+	    </header>
+
+	    	<div class="row">
+	            <div id="my_camera" class="center-block" style="width:320px; height:240px;">	  	
+	            </div>
+	        </div>
+	        </br>
+
+	        <div class="row text-center" style="height:50px;">
+	        	<p id="instructions" > Click to take a photo of the label</p>
+	        </div>
+
+	        <div class="row">
+	        	<div id="buttons" class="text-center">
+	            	<a id='snapShotLink' href="javascript:void(take_snapshot())"/><button id="snapShot" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-camera"></span></button></a>
+
+	            	<a id='approveButtonLink' href='javascript:void(unfreezeAndSend())'/><button id='approveSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-ok'></span></button>
+
+	            	<a id='retakeButtonLink' href='javascript:void(unfreeze())'/><button id='retakeSnapShot' type='button' class='btn btn-lg btn-default'><span class='glyphicon glyphicon-remove'></span></button>
+
+	            	<a id="refreshLink" href="javascript:void(refresh())"/><button id="refresh" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-refresh"></span></button></a>
+	            </div>
+	        </div>
+    
+			    <script language="JavaScript">
+
+			    	var picData =[];
+
+			    	var picNum = 1;
+
+			        Webcam.attach( '#my_camera' );
+
+			        $('#approveSnapShot').hide();
+			        $('#retakeSnapShot').hide();
+			        $('#refresh').hide();
+			        
+			        // unfreezes the webcam when the retake button is clicked
+
+			        function unfreeze() {
+
+			        	Webcam.unfreeze();
+			        }
+
+			        // when the approve button is clicked this function is called and sends the data stored in picData[0] to google vision api clears the data from the picData array and unfreezes the webcam image
+
+			        function unfreezeAndSend() {
+
+			        	if (picNum === 1) {
+			        		sendFileToCloudVision(picData[0], 'LOGO_DETECTION');
+			        		picData = [];
+			        		picNum ++;
+			        		Webcam.unfreeze();
+			        		
+			        	} else {
+			        		sendFileToCloudVision(picData[0], 'FACE_DETECTION');
+			        		picData = [];
+			        		picNum = 1;
+			        		Webcam.unfreeze();
+			        	}
+			       	}
+
+			       	function sendToApi() {
+			       		console.log('api searching for ');
+			       		// api search will go here
+			       		$('#snapShot').show();
+			       		$('#approveSnapShot').hide();
+			        	$('#retakeSnapShot').hide();
+			        	$('#instructions').text('Now take a picture of your face');
+			        	// getRequest();
+			       	}
+
+			       	function approveLogo() {
+			       		console.log('logo approved');
+			       		unfreezeAndSend();
+			       	}
+
+			       	function retakeLogo() {
+			       		unfreeze();
+			       		$('#snapShot').show();
+			       		$('#approveSnapShot').hide();
+			        	$('#retakeSnapShot').hide();
+			        	$('#instructions').text('Please retake the picture of the logo');
+			       	}
+
+			       	function approveFacePic() {
+			       		console.log('take face pic');
+			       		unfreezeAndSend();
+			       	}
+
+			       	function retakeFacePic() {
+			       		console.log('retakeFacePic');
+			       		unfreeze();
+			       		$('#snapShot').show();
+			       		$('#approveSnapShot').hide();
+			        	$('#retakeSnapShot').hide();
+			        	$('#instructions').text('Please retake your face picture');
+			       		picNum = 2;
+			       		piData = [];	
+			       	}
+			       
+			        function take_snapshot() {
+
+			            Webcam.snap(function(data_uri) {
+
+			            	picData.push(data_uri);
+			            
+			                Webcam.freeze();
+
+			                $('#approveSnapShot').show();
+			        		$('#retakeSnapShot').show();
+			        		$('#instructions').text('is this the picture you would like to send?')
+			                $('#snapShot').hide();
+  							$('#approveButtonLink').attr('href', 'javascript:void(approveLogo())');
+  							$('#retakeButtonLink').attr('href', 'javascript:void(retakeLogo())');
+
+  							if (picNum > 1) {
+  								$('#approveButtonLink').attr('href', 'javascript:void(approveFacePic())');
+  								$('#retakeButtonLink').attr('href', 'javascript:void(retakeFacePic())');
+  							}
+			            });
+			        }
+
+			        function addToFav() {
+			        	$('#favorites').text(window.beer);
+			        	$('#approveSnapShot').hide();
+			        	$('#retakeSnapShot').hide();
+			        	$('#refresh').show();
+
+			        }
+
+			        function noToFav() {
+			        	refresh();
+			        }
+
+			        function refresh() {
+			        	console.log('refresh');
+			        	window.location.reload(false);
+			        }
+			    </script>
+
+			    <!-- below is to upload a file -->
+			   <!--  <input type="file" name="fileField"><br /><br />
+			    <input type="submit" name="submit" value="Submit"> -->
+			
+	        <div class="row">
+	            <div class="col-lg-12">	                
+	                <div class="panel panel-default" hidden="">
+	                    <div class="panel-heading">
+	                        <h4 class="panel-title">Search Results</h4>  
+	                    </div>
+	                    <div class="panel-body" id="">
+	                    </div>
+	                </div>
+
+	                <div class="panel panel-default" hidden="">
+	                    <div class="panel-heading">
+	                        <h4 id='favorites' class="panel-title">Favorite Beers</h4>
+	                    </div>
+	                    <div class="panel-body" id="">
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+	        <footer class="footer">
+	            <div class="container">
+	                <!-- <p>Control Panel</p> -->
+	                 <a href="https://github.com/jrs341/boogie_brigade">GitHub Repo</a></p>
+	            </div>
+	            <code style="white-space:pre" id="results"></code>
+	        </footer>
+
+	</body>
+</html>
